@@ -1,5 +1,9 @@
 extends CharacterBody3D
 
+# Signals to handle the change of seeing the enemy
+signal set_view_true
+signal set_view_false
+
 # Variables for movement speed
 var speed
 const WALK_SPEED = 5.0
@@ -25,8 +29,20 @@ const FOV_CHANGE = 1.5
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.8
 
+# Shapecast, used to help with the visibility of the enemy
+@onready var shapecast = $Head/Camera3D/ShapeCast3D
+@onready var enemy_test = $"../Enemy_test"
+
+# Variable that is used to detect if the enemy is on view
+var player_is_seeing_it = false
+
+# HUD vars, needed for the static itself
+@onready var tv_static = $HUD/Tv_static
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	shapecast.add_exception(self)
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -35,6 +51,13 @@ func _input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 func _physics_process(delta):
+	if is_seeing_the_enemy():
+		if tv_static.self_modulate.a < 1:
+			tv_static.self_modulate.a += 0.001
+	else:
+		if tv_static.self_modulate.a > 0:
+			tv_static.self_modulate.a -= 0.01
+		
 	if Input.is_action_just_pressed("escape"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
@@ -83,3 +106,21 @@ func _headbob(time) -> Vector3:
 	pos.y = sin(time * BOB_FREQUENCY) * BOB_AMPLITUDE
 	pos.x = sin(time * BOB_FREQUENCY / 2) * BOB_AMPLITUDE
 	return pos
+
+
+func is_seeing_the_enemy():
+	if player_is_seeing_it:
+		return true
+
+	if shapecast.is_colliding():
+		if shapecast.get_collider(0) == enemy_test:
+			return true
+
+	return false
+
+func _on_set_view_true():
+	player_is_seeing_it = true
+
+
+func _on_set_view_false():
+	player_is_seeing_it = false

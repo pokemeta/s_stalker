@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b3go2r76t8gd4"]
+[gd_scene load_steps=21 format=3 uid="uid://b3go2r76t8gd4"]
 
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_blocks.gd" id="1_gtd6s"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_convex_block.gd" id="2_x2g8i"]
@@ -9,6 +9,7 @@
 [ext_resource type="Material" uid="uid://nqt0uqlpr03x" path="res://materials/placeholder3.tres" id="6_5600o"]
 [ext_resource type="Material" uid="uid://babdo6d0fb1vl" path="res://materials/placeholder4.tres" id="7_xkrlc"]
 [ext_resource type="Material" uid="uid://dwyqesykvhx2l" path="res://materials/placeholder5.tres" id="8_1yad1"]
+[ext_resource type="Script" path="res://enemy_test.gd" id="10_w7uxw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yw7yy"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -123,6 +124,10 @@ face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
 active_face = -1
 face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
+[sub_resource type="SphereMesh" id="SphereMesh_fpk55"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5whmj"]
+
 [node name="World" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -162,3 +167,19 @@ block_data = SubResource("Resource_c7730")
 
 [node name="Playercontroller" parent="." instance=ExtResource("5_gchtp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Enemy_test" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.641, 2.22953, -17.1565)
+script = ExtResource("10_w7uxw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy_test"]
+mesh = SubResource("SphereMesh_fpk55")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy_test"]
+shape = SubResource("SphereShape3D_5whmj")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="Enemy_test"]
+aabb = AABB(-0.500435, -0.622486, -0.653013, 1.00087, 1.24497, 1.30603)
+
+[connection signal="screen_entered" from="Enemy_test/VisibleOnScreenNotifier3D" to="Enemy_test" method="_on_visible_on_screen_notifier_3d_screen_entered"]
+[connection signal="screen_exited" from="Enemy_test/VisibleOnScreenNotifier3D" to="Enemy_test" method="_on_visible_on_screen_notifier_3d_screen_exited"]

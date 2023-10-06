@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw48lied41318"]
+[gd_scene load_steps=6 format=3 uid="uid://dw48lied41318"]
 
 [ext_resource type="Script" path="res://playercontroller.gd" id="1_otej2"]
+[ext_resource type="Texture2D" uid="uid://rr0vbhujn73o" path="res://icon.svg" id="2_iuu7s"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ytj2u"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t61v6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h3yiq"]
+margin = 0.0
+radius = 0.1
 
 [node name="Playercontroller" type="CharacterBody3D"]
 script = ExtResource("1_otej2")
@@ -21,3 +26,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.545214, -0.438342)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Head/Camera3D"]
+shape = SubResource("SphereShape3D_h3yiq")
+target_position = Vector3(0, 0, -30)
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tv_static" type="TextureRect" parent="HUD"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_iuu7s")
+
+[connection signal="set_view_false" from="." to="." method="_on_set_view_false"]
+[connection signal="set_view_true" from="." to="." method="_on_set_view_true"]
