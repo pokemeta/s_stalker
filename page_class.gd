@@ -8,7 +8,7 @@ signal destroy_page
 
 func _process(_delta):
 	
-	var distance_x = playercontroller.global_position.x - global_position.x
+	var distance_x = playercontroller.global_position.x - self.global_position.x
 	if distance_x <= 2:
 		playercontroller.is_close_to_page = true
 	else:

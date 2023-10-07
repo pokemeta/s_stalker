@@ -44,6 +44,11 @@ var is_close_to_page = false
 
 @onready var press_e = $HUD/Press_e
 
+# Pages
+var pages = 0
+@onready var p_fade_animation = $HUD/pagecount_fade
+@onready var page_count = $HUD/page_count
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -66,6 +71,7 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("interact") and press_e.visible:
 		press_e.visible = false
+		collected_page()
 		shapecast.get_collider(0).emit_signal("destroy_page")
 	
 	if is_seeing_the_enemy():
@@ -117,6 +123,12 @@ func _physics_process(delta):
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
 
 	move_and_slide()
+
+func collected_page():
+	pages += 1
+	var page_string = str(pages)
+	page_count.text = "Pages " + page_string + " out of 8 collected"
+	p_fade_animation.play("p_fade")
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO

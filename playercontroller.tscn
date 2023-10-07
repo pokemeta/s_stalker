@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw48lied41318"]
+[gd_scene load_steps=11 format=3 uid="uid://dw48lied41318"]
 
 [ext_resource type="Script" path="res://playercontroller.gd" id="1_otej2"]
 [ext_resource type="Texture2D" uid="uid://rr0vbhujn73o" path="res://icon.svg" id="2_iuu7s"]
@@ -13,6 +13,46 @@ radius = 0.1
 
 [sub_resource type="LabelSettings" id="LabelSettings_kydfm"]
 font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_nh23w"]
+font_size = 32
+
+[sub_resource type="Animation" id="Animation_b4pkn"]
+resource_name = "p_fade"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("page_count:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_c88by"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("page_count:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kgb1b"]
+_data = {
+"RESET": SubResource("Animation_c88by"),
+"p_fade": SubResource("Animation_b4pkn")
+}
 
 [node name="Playercontroller" type="CharacterBody3D"]
 script = ExtResource("1_otej2")
@@ -68,6 +108,27 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Press [Left Click] to collect"
 label_settings = SubResource("LabelSettings_kydfm")
+
+[node name="page_count" type="Label" parent="HUD"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -195.5
+offset_top = -48.0
+offset_right = 195.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Pages 0 out of 8 collected"
+label_settings = SubResource("LabelSettings_nh23w")
+
+[node name="pagecount_fade" type="AnimationPlayer" parent="HUD"]
+libraries = {
+"": SubResource("AnimationLibrary_kgb1b")
+}
 
 [connection signal="set_view_false" from="." to="." method="_on_set_view_false"]
 [connection signal="set_view_true" from="." to="." method="_on_set_view_true"]

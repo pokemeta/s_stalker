@@ -322,6 +322,83 @@ mesh = SubResource("BoxMesh_ct3gp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Page"]
 shape = SubResource("BoxShape3D_kpst5")
 
+[node name="Page2" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 0.862506, -17.9784)
+script = ExtResource("12_h2plf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Page2"]
+mesh = SubResource("BoxMesh_ct3gp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Page2"]
+shape = SubResource("BoxShape3D_kpst5")
+
+[node name="Page3" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 1.90072, -19.1733)
+script = ExtResource("12_h2plf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Page3"]
+mesh = SubResource("BoxMesh_ct3gp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Page3"]
+shape = SubResource("BoxShape3D_kpst5")
+
+[node name="Page4" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 2.32259, -20.4142)
+script = ExtResource("12_h2plf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Page4"]
+mesh = SubResource("BoxMesh_ct3gp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Page4"]
+shape = SubResource("BoxShape3D_kpst5")
+
+[node name="Page5" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 0.426845, -21.3831)
+script = ExtResource("12_h2plf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Page5"]
+mesh = SubResource("BoxMesh_ct3gp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Page5"]
+shape = SubResource("BoxShape3D_kpst5")
+
+[node name="Page6" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 1.36694, -22.4908)
+script = ExtResource("12_h2plf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Page6"]
+mesh = SubResource("BoxMesh_ct3gp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Page6"]
+shape = SubResource("BoxShape3D_kpst5")
+
+[node name="Page7" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 1.95504, -23.6527)
+script = ExtResource("12_h2plf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Page7"]
+mesh = SubResource("BoxMesh_ct3gp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Page7"]
+shape = SubResource("BoxShape3D_kpst5")
+
+[node name="Page8" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 0.875036, -24.5025)
+script = ExtResource("12_h2plf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Page8"]
+mesh = SubResource("BoxMesh_ct3gp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Page8"]
+shape = SubResource("BoxShape3D_kpst5")
+
 [connection signal="screen_entered" from="Enemy_test/VisibleOnScreenNotifier3D" to="Enemy_test" method="_on_visible_on_screen_notifier_3d_screen_entered"]
 [connection signal="screen_exited" from="Enemy_test/VisibleOnScreenNotifier3D" to="Enemy_test" method="_on_visible_on_screen_notifier_3d_screen_exited"]
 [connection signal="destroy_page" from="Page" to="Page" method="_on_destroy_page"]
+[connection signal="destroy_page" from="Page2" to="Page2" method="_on_destroy_page"]
+[connection signal="destroy_page" from="Page3" to="Page3" method="_on_destroy_page"]
+[connection signal="destroy_page" from="Page4" to="Page4" method="_on_destroy_page"]
+[connection signal="destroy_page" from="Page5" to="Page5" method="_on_destroy_page"]
+[connection signal="destroy_page" from="Page6" to="Page6" method="_on_destroy_page"]
+[connection signal="destroy_page" from="Page7" to="Page7" method="_on_destroy_page"]
+[connection signal="destroy_page" from="Page8" to="Page8" method="_on_destroy_page"]
