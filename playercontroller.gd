@@ -48,12 +48,14 @@ var is_close_to_page = false
 var pages = 0
 @onready var p_fade_animation = $HUD/pagecount_fade
 @onready var page_count = $HUD/page_count
+@onready var pagecast = $Head/Camera3D/Pagecast
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	# This is done because the raycast would always detect the player
 	shapecast.add_exception(self)
+	pagecast.add_exception(self)
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -63,16 +65,23 @@ func _input(event):
 
 func _physics_process(delta):
 	if is_close_to_page:
-		if shapecast.is_colliding():
-			if shapecast.get_collider(0) is page_object:
+		
+		if pagecast.is_colliding():
+			
+			if pagecast.get_collider(0) is page_object:
+				
 				press_e.visible = true
+				
+				if Input.is_action_just_pressed("interact") and is_close_to_page:
+					press_e.visible = false
+					collected_page()
+					pagecast.get_collider(0).emit_signal("destroy_page")
+				
 			else:
 				press_e.visible = false
-	
-	if Input.is_action_just_pressed("interact") and press_e.visible:
+				
+	else:
 		press_e.visible = false
-		collected_page()
-		shapecast.get_collider(0).emit_signal("destroy_page")
 	
 	if is_seeing_the_enemy():
 		if tv_static.self_modulate.a < 1:

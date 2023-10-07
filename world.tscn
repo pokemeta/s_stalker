@@ -226,9 +226,9 @@ face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
 active_face = -1
 face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
-[sub_resource type="SphereMesh" id="SphereMesh_fpk55"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rxvkj"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_5whmj"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yqh1f"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ct3gp"]
 
@@ -300,17 +300,17 @@ block_data = SubResource("Resource_favff")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0187473, 1, -0.0150486)
 
 [node name="Enemy_test" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.641, 2.22953, -17.1565)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.641, 1, -17.1565)
 script = ExtResource("10_w7uxw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy_test"]
-mesh = SubResource("SphereMesh_fpk55")
+mesh = SubResource("CapsuleMesh_rxvkj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy_test"]
-shape = SubResource("SphereShape3D_5whmj")
+shape = SubResource("CapsuleShape3D_yqh1f")
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="Enemy_test"]
-aabb = AABB(-0.500435, -0.622486, -0.653013, 1.00087, 1.24497, 1.30603)
+aabb = AABB(-0.500435, -0.9352, -0.653013, 1.00087, 1.8704, 1.30603)
 
 [node name="Page" type="StaticBody3D" parent="."]
 transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 2.11221, -16.6553)
