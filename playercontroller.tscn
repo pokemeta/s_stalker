@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dw48lied41318"]
+[gd_scene load_steps=7 format=3 uid="uid://dw48lied41318"]
 
 [ext_resource type="Script" path="res://playercontroller.gd" id="1_otej2"]
 [ext_resource type="Texture2D" uid="uid://rr0vbhujn73o" path="res://icon.svg" id="2_iuu7s"]
@@ -10,6 +10,9 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_h3yiq"]
 margin = 0.0
 radius = 0.1
+
+[sub_resource type="LabelSettings" id="LabelSettings_kydfm"]
+font_size = 32
 
 [node name="Playercontroller" type="CharacterBody3D"]
 script = ExtResource("1_otej2")
@@ -48,6 +51,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_iuu7s")
+
+[node name="Press_e" type="Label" parent="HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -141.0
+offset_top = -127.0
+offset_right = 141.0
+offset_bottom = -79.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press [Left Click] to collect"
+label_settings = SubResource("LabelSettings_kydfm")
 
 [connection signal="set_view_false" from="." to="." method="_on_set_view_false"]
 [connection signal="set_view_true" from="." to="." method="_on_set_view_true"]

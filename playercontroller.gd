@@ -39,9 +39,15 @@ var player_is_seeing_it = false
 # HUD vars, needed for the static itself
 @onready var tv_static = $HUD/Tv_static
 
+# Variable that gets changed by page_class script
+var is_close_to_page = false
+
+@onready var press_e = $HUD/Press_e
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
+	# This is done because the raycast would always detect the player
 	shapecast.add_exception(self)
 
 func _input(event):
@@ -51,6 +57,17 @@ func _input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 func _physics_process(delta):
+	if is_close_to_page:
+		if shapecast.is_colliding():
+			if shapecast.get_collider(0) is page_object:
+				press_e.visible = true
+			else:
+				press_e.visible = false
+	
+	if Input.is_action_just_pressed("interact") and press_e.visible:
+		press_e.visible = false
+		shapecast.get_collider(0).emit_signal("destroy_page")
+	
 	if is_seeing_the_enemy():
 		if tv_static.self_modulate.a < 1:
 			tv_static.self_modulate.a += 0.001
