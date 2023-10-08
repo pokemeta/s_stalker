@@ -303,9 +303,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0187473, 1, -0.0150486)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.641, 1, -17.1565)
 script = ExtResource("10_w7uxw")
 
-[node name="Area3D" type="Area3D" parent="Enemy_test"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy_test/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy_test"]
 shape = SubResource("CapsuleShape3D_yqh1f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy_test"]
