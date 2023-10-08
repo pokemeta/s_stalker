@@ -19,17 +19,12 @@ var delay_teleport = 0
 var selected_number
 
 func _physics_process(_delta):
-	if delay_teleport <= 180:
-		delay_teleport += 1
-	else:
-		var randomizer = randf_range(0, teleport_points.size())
-		while randomizer == selected_number:
-			randomizer = randf_range(0, teleport_points.size())
-		selected_number = randomizer
-		global_position = teleport_points[randomizer].global_position
-		global_position.y += 1
-		delay_teleport = 0
 	
+	teleport()
+	
+	player_on_sight()
+
+func player_on_sight():
 	var space = get_world_3d().direct_space_state
 	var ray_to_player = PhysicsRayQueryParameters3D.create(
 		global_position, playercontroller.global_position
@@ -42,6 +37,18 @@ func _physics_process(_delta):
 		else:
 			ai_move()
 			playercontroller.emit_signal("set_view_false")
+
+func teleport():
+	if delay_teleport <= 180:
+		delay_teleport += 1
+	else:
+		var randomizer = randf_range(0, teleport_points.size())
+		while randomizer == selected_number:
+			randomizer = randf_range(0, teleport_points.size())
+		selected_number = randomizer
+		global_position = teleport_points[randomizer].global_position
+		global_position.y += 1
+		delay_teleport = 0
 
 func ai_move():
 	nav_agent.set_target_position(playercontroller.global_position)

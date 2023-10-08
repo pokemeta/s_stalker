@@ -68,37 +68,16 @@ func _input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 func _physics_process(delta):
-	if pagecast.is_colliding():
-		if pagecast.get_collider(0) is page_object and is_close_to_page:
-			press_e.visible = true
-			if Input.is_action_just_pressed("interact"):
-				press_e.visible = false
-				collected_page()
-				pagecast.get_collider(0).emit_signal("destroy_page")
-	else:
-		press_e.visible = false
+	page_near_check()
 	
-	if is_seeing_the_enemy():
-		if not radio_sound.playing:
-			radio_sound.play()
-		
-		if radio_sound.volume_db <= -20:
-			radio_sound.volume_db += 0.01
-		
-		if tv_static.self_modulate.a < 1:
-			tv_static.self_modulate.a += 0.001
-	else:
-		if radio_sound.volume_db >= -30:
-			radio_sound.volume_db -= 0.1
-		else:
-			radio_sound.stop()
-			
-		if tv_static.self_modulate.a > 0:
-			tv_static.self_modulate.a -= 0.01
-		
+	health_handle()
+	
 	if Input.is_action_just_pressed("escape"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
+	movement(delta)
+
+func movement(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -138,6 +117,36 @@ func _physics_process(delta):
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
 
 	move_and_slide()
+
+func health_handle():
+	if is_seeing_the_enemy():
+		if not radio_sound.playing:
+			radio_sound.play()
+		
+		if radio_sound.volume_db <= -20:
+			radio_sound.volume_db += 0.01
+		
+		if tv_static.self_modulate.a < 1:
+			tv_static.self_modulate.a += 0.001
+	else:
+		if radio_sound.volume_db >= -30:
+			radio_sound.volume_db -= 0.1
+		else:
+			radio_sound.stop()
+			
+		if tv_static.self_modulate.a > 0:
+			tv_static.self_modulate.a -= 0.01
+
+func page_near_check():
+	if pagecast.is_colliding():
+		if pagecast.get_collider(0) is page_object and is_close_to_page:
+			press_e.visible = true
+			if Input.is_action_just_pressed("interact"):
+				press_e.visible = false
+				collected_page()
+				pagecast.get_collider(0).emit_signal("destroy_page")
+	else:
+		press_e.visible = false
 
 func collected_page():
 	pages_sound.play()
