@@ -38,11 +38,13 @@ var player_is_seeing_it = false
 
 # HUD vars, needed for the static itself
 @onready var tv_static = $HUD/Tv_static
+@onready var tv_static_anim = $tv_static_anim
+@onready var radio_sound = $radio_sound
 
 # Variable that gets changed by page_class script
 var is_close_to_page = false
-
 @onready var press_e = $HUD/Press_e
+@onready var pages_sound = $pages_sound
 
 # Pages
 var pages = 0
@@ -52,6 +54,8 @@ var pages = 0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	tv_static_anim.play("tv_static")
 	
 	# This is done because the raycast would always detect the player
 	shapecast.add_exception(self)
@@ -84,9 +88,20 @@ func _physics_process(delta):
 		press_e.visible = false
 	
 	if is_seeing_the_enemy():
+		if not radio_sound.playing:
+			radio_sound.play()
+		
+		if radio_sound.volume_db <= -20:
+			radio_sound.volume_db += 0.01
+		
 		if tv_static.self_modulate.a < 1:
 			tv_static.self_modulate.a += 0.001
 	else:
+		if radio_sound.volume_db >= -30:
+			radio_sound.volume_db -= 0.1
+		else:
+			radio_sound.stop()
+			
 		if tv_static.self_modulate.a > 0:
 			tv_static.self_modulate.a -= 0.01
 		
@@ -134,6 +149,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func collected_page():
+	pages_sound.play()
 	pages += 1
 	var page_string = str(pages)
 	page_count.text = "Pages " + page_string + " out of 8 collected"

@@ -1,7 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://dw48lied41318"]
+[gd_scene load_steps=23 format=3 uid="uid://dw48lied41318"]
 
 [ext_resource type="Script" path="res://playercontroller.gd" id="1_otej2"]
-[ext_resource type="Texture2D" uid="uid://rr0vbhujn73o" path="res://icon.svg" id="2_iuu7s"]
+[ext_resource type="Texture2D" uid="uid://23p2exxosifm" path="res://assets/static_frames/frame1.png" id="2_rmmqo"]
+[ext_resource type="Texture2D" uid="uid://dkpww1k1i4o30" path="res://assets/static_frames/frame2.png" id="3_yey3h"]
+[ext_resource type="Texture2D" uid="uid://cl4vmfdsbne8w" path="res://assets/static_frames/frame3.png" id="4_3f57e"]
+[ext_resource type="Texture2D" uid="uid://dbv6dheacpxhe" path="res://assets/static_frames/frame4.png" id="5_2g51g"]
+[ext_resource type="Texture2D" uid="uid://craf3s6dc645o" path="res://assets/static_frames/frame5.png" id="6_kryp6"]
+[ext_resource type="AudioStream" uid="uid://daoofdt7sdll7" path="res://assets/audio/sfx/tv/radio_sfx.ogg" id="7_eflpc"]
+[ext_resource type="AudioStream" uid="uid://7fljcacjhfsr" path="res://assets/audio/sfx/pages/page_sfx1.ogg" id="8_77m3r"]
+[ext_resource type="AudioStream" uid="uid://cuexsga711ly1" path="res://assets/audio/sfx/pages/page_sfx2.ogg" id="9_3kva0"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ytj2u"]
 
@@ -58,6 +65,52 @@ _data = {
 "p_fade": SubResource("Animation_b4pkn")
 }
 
+[sub_resource type="Animation" id="Animation_iuhuu"]
+resource_name = "tv_static"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Tv_static:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_rmmqo"), ExtResource("3_yey3h"), ExtResource("4_3f57e"), ExtResource("5_2g51g"), ExtResource("6_kryp6"), ExtResource("2_rmmqo"), ExtResource("3_yey3h"), ExtResource("4_3f57e"), ExtResource("5_2g51g"), ExtResource("6_kryp6"), ExtResource("2_rmmqo")]
+}
+
+[sub_resource type="Animation" id="Animation_gty1l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Tv_static:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_rmmqo")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u6kvl"]
+_data = {
+"RESET": SubResource("Animation_gty1l"),
+"tv_static": SubResource("Animation_iuhuu")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kujci"]
+streams_count = 2
+random_pitch = 1.0
+random_volume_offset_db = 0.0
+stream_0/stream = ExtResource("8_77m3r")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("9_3kva0")
+stream_1/weight = 1.0
+
 [node name="Playercontroller" type="CharacterBody3D"]
 script = ExtResource("1_otej2")
 
@@ -98,7 +151,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_iuu7s")
+texture = ExtResource("2_rmmqo")
 
 [node name="Press_e" type="Label" parent="HUD"]
 visible = false
@@ -137,6 +190,20 @@ label_settings = SubResource("LabelSettings_nh23w")
 libraries = {
 "": SubResource("AnimationLibrary_kgb1b")
 }
+
+[node name="tv_static_anim" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
+libraries = {
+"": SubResource("AnimationLibrary_u6kvl")
+}
+
+[node name="radio_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_eflpc")
+volume_db = -30.0
+
+[node name="pages_sound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_kujci")
+volume_db = -10.0
 
 [connection signal="set_view_false" from="." to="." method="_on_set_view_false"]
 [connection signal="set_view_true" from="." to="." method="_on_set_view_true"]
