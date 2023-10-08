@@ -13,7 +13,6 @@ func _physics_process(_delta):
 	
 	if results:
 		if results.collider == playercontroller and on_view:
-			#print("WATCHING THE PLAYER")
 			playercontroller.emit_signal("set_view_true")
 		else:
 			playercontroller.emit_signal("set_view_false")

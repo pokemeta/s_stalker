@@ -4,16 +4,15 @@ class_name page_object
 
 signal destroy_page
 
-@onready var playercontroller = $"../Playercontroller"
-
-func _process(_delta):
-	
-	var distance_x = playercontroller.global_position.x - self.global_position.x
-	if distance_x <= 2:
-		playercontroller.is_close_to_page = true
-	else:
-		playercontroller.is_close_to_page = false
-
+@export var playercontroller: Node3D
 
 func _on_destroy_page():
 	self.queue_free()
+
+func _on_area_3d_body_entered(body):
+	if body == playercontroller:
+		playercontroller.is_close_to_page = true
+
+func _on_area_3d_body_exited(body):
+	if body == playercontroller:
+		playercontroller.is_close_to_page = false

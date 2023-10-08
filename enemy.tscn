@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuaj0gkhbg52t"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_eudsj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_11wmy"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2ppts"]
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_eudsj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_11wmy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_2ppts")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+aabb = AABB(-0.589569, -1, -0.566728, 1.17914, 2, 1.13346)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dej1l8ydm5vkd"]
+
+[ext_resource type="Script" path="res://page_class.gd" id="1_q4cit"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ct3gp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kpst5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3igad"]
+size = Vector3(71.0373, 2.9968, 6.63767)
+
+[node name="Page" type="StaticBody3D"]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_q4cit")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 2
+mesh = SubResource("BoxMesh_ct3gp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_kpst5")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_3igad")
+
+[connection signal="destroy_page" from="." to="." method="_on_destroy_page"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

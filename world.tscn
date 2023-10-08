@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b3go2r76t8gd4"]
+[gd_scene load_steps=28 format=3 uid="uid://b3go2r76t8gd4"]
 
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_blocks.gd" id="1_gtd6s"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_convex_block.gd" id="2_x2g8i"]
@@ -11,7 +11,7 @@
 [ext_resource type="Material" uid="uid://dwyqesykvhx2l" path="res://materials/placeholder5.tres" id="8_1yad1"]
 [ext_resource type="Material" uid="uid://dfhsktefivanp" path="res://materials/placeholder6.tres" id="9_jhv0m"]
 [ext_resource type="Script" path="res://enemy_test.gd" id="10_w7uxw"]
-[ext_resource type="Script" path="res://page_class.gd" id="12_h2plf"]
+[ext_resource type="PackedScene" uid="uid://dej1l8ydm5vkd" path="res://page.tscn" id="12_h6bg8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yw7yy"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -230,10 +230,6 @@ face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rxvkj"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_ct3gp"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_kpst5"]
-
 [node name="World" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -296,8 +292,9 @@ script = ExtResource("2_x2g8i")
 materials = Array[Material]([ExtResource("9_jhv0m")])
 block_data = SubResource("Resource_favff")
 
-[node name="Playercontroller" parent="." instance=ExtResource("5_gchtp")]
+[node name="Playercontroller" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("5_gchtp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0187473, 1, -0.0150486)
+enemy = NodePath("../Enemy_test")
 
 [node name="Enemy_test" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.641, 1, -17.1565)
@@ -312,93 +309,39 @@ mesh = SubResource("CapsuleMesh_rxvkj")
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="Enemy_test"]
 aabb = AABB(-0.500435, -0.9352, -0.653013, 1.00087, 1.8704, 1.30603)
 
-[node name="Page" type="StaticBody3D" parent="."]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 2.11221, -16.6553)
-script = ExtResource("12_h2plf")
+[node name="Pages" type="Node3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Page"]
-mesh = SubResource("BoxMesh_ct3gp")
+[node name="Page" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("12_h6bg8")]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.989, 1.12048, -16.7735)
+playercontroller = NodePath("../../Playercontroller")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Page"]
-shape = SubResource("BoxShape3D_kpst5")
+[node name="Page2" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("12_h6bg8")]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.989, 2.21432, -18.0333)
+playercontroller = NodePath("../../Playercontroller")
 
-[node name="Page2" type="StaticBody3D" parent="."]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 0.862506, -17.9784)
-script = ExtResource("12_h2plf")
+[node name="Page3" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("12_h6bg8")]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.989, 0.620853, -18.948)
+playercontroller = NodePath("../../Playercontroller")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Page2"]
-mesh = SubResource("BoxMesh_ct3gp")
+[node name="Page4" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("12_h6bg8")]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.989, 1.32954, -19.8966)
+playercontroller = NodePath("../../Playercontroller")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Page2"]
-shape = SubResource("BoxShape3D_kpst5")
+[node name="Page5" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("12_h6bg8")]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.989, 2.07613, -20.9978)
+playercontroller = NodePath("../../Playercontroller")
 
-[node name="Page3" type="StaticBody3D" parent="."]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 1.90072, -19.1733)
-script = ExtResource("12_h2plf")
+[node name="Page6" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("12_h6bg8")]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.989, 0.924573, -22.0677)
+playercontroller = NodePath("../../Playercontroller")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Page3"]
-mesh = SubResource("BoxMesh_ct3gp")
+[node name="Page7" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("12_h6bg8")]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.989, 1.52569, -23.2777)
+playercontroller = NodePath("../../Playercontroller")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Page3"]
-shape = SubResource("BoxShape3D_kpst5")
-
-[node name="Page4" type="StaticBody3D" parent="."]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 2.32259, -20.4142)
-script = ExtResource("12_h2plf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Page4"]
-mesh = SubResource("BoxMesh_ct3gp")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Page4"]
-shape = SubResource("BoxShape3D_kpst5")
-
-[node name="Page5" type="StaticBody3D" parent="."]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 0.426845, -21.3831)
-script = ExtResource("12_h2plf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Page5"]
-mesh = SubResource("BoxMesh_ct3gp")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Page5"]
-shape = SubResource("BoxShape3D_kpst5")
-
-[node name="Page6" type="StaticBody3D" parent="."]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 1.36694, -22.4908)
-script = ExtResource("12_h2plf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Page6"]
-mesh = SubResource("BoxMesh_ct3gp")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Page6"]
-shape = SubResource("BoxShape3D_kpst5")
-
-[node name="Page7" type="StaticBody3D" parent="."]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 1.95504, -23.6527)
-script = ExtResource("12_h2plf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Page7"]
-mesh = SubResource("BoxMesh_ct3gp")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Page7"]
-shape = SubResource("BoxShape3D_kpst5")
-
-[node name="Page8" type="StaticBody3D" parent="."]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.981, 0.875036, -24.5025)
-script = ExtResource("12_h2plf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Page8"]
-mesh = SubResource("BoxMesh_ct3gp")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Page8"]
-shape = SubResource("BoxShape3D_kpst5")
+[node name="Page8" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("12_h6bg8")]
+transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.989, 2.16042, -24.2179)
+playercontroller = NodePath("../../Playercontroller")
 
 [connection signal="screen_entered" from="Enemy_test/VisibleOnScreenNotifier3D" to="Enemy_test" method="_on_visible_on_screen_notifier_3d_screen_entered"]
 [connection signal="screen_exited" from="Enemy_test/VisibleOnScreenNotifier3D" to="Enemy_test" method="_on_visible_on_screen_notifier_3d_screen_exited"]
-[connection signal="destroy_page" from="Page" to="Page" method="_on_destroy_page"]
-[connection signal="destroy_page" from="Page2" to="Page2" method="_on_destroy_page"]
-[connection signal="destroy_page" from="Page3" to="Page3" method="_on_destroy_page"]
-[connection signal="destroy_page" from="Page4" to="Page4" method="_on_destroy_page"]
-[connection signal="destroy_page" from="Page5" to="Page5" method="_on_destroy_page"]
-[connection signal="destroy_page" from="Page6" to="Page6" method="_on_destroy_page"]
-[connection signal="destroy_page" from="Page7" to="Page7" method="_on_destroy_page"]
-[connection signal="destroy_page" from="Page8" to="Page8" method="_on_destroy_page"]

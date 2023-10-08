@@ -65,6 +65,21 @@ _data = {
 "p_fade": SubResource("Animation_b4pkn")
 }
 
+[sub_resource type="Animation" id="Animation_gty1l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HUD/Tv_static:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_rmmqo")]
+}
+
 [sub_resource type="Animation" id="Animation_iuhuu"]
 resource_name = "tv_static"
 loop_mode = 1
@@ -79,21 +94,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("2_rmmqo"), ExtResource("3_yey3h"), ExtResource("4_3f57e"), ExtResource("5_2g51g"), ExtResource("6_kryp6"), ExtResource("2_rmmqo"), ExtResource("3_yey3h"), ExtResource("4_3f57e"), ExtResource("5_2g51g"), ExtResource("6_kryp6"), ExtResource("2_rmmqo")]
-}
-
-[sub_resource type="Animation" id="Animation_gty1l"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HUD/Tv_static:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_rmmqo")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u6kvl"]
@@ -134,6 +134,7 @@ target_position = Vector3(0, 0, -100)
 [node name="Pagecast" type="ShapeCast3D" parent="Head/Camera3D"]
 shape = SubResource("SphereShape3D_7k7g6")
 target_position = Vector3(0, 0, -3)
+collision_mask = 2
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3

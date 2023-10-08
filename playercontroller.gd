@@ -31,7 +31,7 @@ var gravity = 9.8
 
 # Shapecast, used to help with the visibility of the enemy
 @onready var shapecast = $Head/Camera3D/ShapeCast3D
-@onready var enemy_test = $"../Enemy_test"
+@export var enemy: Node3D
 
 # Variable that is used to detect if the enemy is on view
 var player_is_seeing_it = false
@@ -68,22 +68,13 @@ func _input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 func _physics_process(delta):
-	if is_close_to_page:
-		
-		if pagecast.is_colliding():
-			
-			if pagecast.get_collider(0) is page_object:
-				
-				press_e.visible = true
-				
-				if Input.is_action_just_pressed("interact") and is_close_to_page:
-					press_e.visible = false
-					collected_page()
-					pagecast.get_collider(0).emit_signal("destroy_page")
-				
-			else:
+	if pagecast.is_colliding():
+		if pagecast.get_collider(0) is page_object and is_close_to_page:
+			press_e.visible = true
+			if Input.is_action_just_pressed("interact"):
 				press_e.visible = false
-				
+				collected_page()
+				pagecast.get_collider(0).emit_signal("destroy_page")
 	else:
 		press_e.visible = false
 	
@@ -167,7 +158,7 @@ func is_seeing_the_enemy():
 		return true
 
 	if shapecast.is_colliding():
-		if shapecast.get_collider(0) == enemy_test:
+		if shapecast.get_collider(0) == enemy:
 			return true
 
 	return false
