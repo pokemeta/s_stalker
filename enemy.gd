@@ -20,7 +20,8 @@ var selected_number
 
 func _physics_process(_delta):
 	
-	teleport()
+	if not playercontroller.is_caught:
+		teleport()
 	
 	player_on_sight()
 
@@ -39,7 +40,7 @@ func player_on_sight():
 			playercontroller.emit_signal("set_view_false")
 
 func teleport():
-	if delay_teleport <= 180:
+	if delay_teleport <= 720:
 		delay_teleport += 1
 	else:
 		var randomizer = randf_range(0, teleport_points.size())
@@ -68,3 +69,8 @@ func _on_visible_on_screen_notifier_3d_screen_entered():
 
 func _on_visible_on_screen_notifier_3d_screen_exited():
 	on_view = false
+
+
+func _on_area_3d_body_entered(body):
+	if body == playercontroller:
+		playercontroller.emit_signal("on_caught")

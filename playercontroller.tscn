@@ -122,7 +122,7 @@ mesh = SubResource("CapsuleMesh_ytj2u")
 shape = SubResource("CapsuleShape3D_t61v6")
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.545214, -0.438342)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.521406, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
@@ -206,5 +206,6 @@ volume_db = -30.0
 stream = SubResource("AudioStreamRandomizer_kujci")
 volume_db = -10.0
 
+[connection signal="on_caught" from="." to="." method="_on_on_caught"]
 [connection signal="set_view_false" from="." to="." method="_on_set_view_false"]
 [connection signal="set_view_true" from="." to="." method="_on_set_view_true"]

@@ -33,6 +33,8 @@ var gravity = 9.8
 @onready var shapecast = $Head/Camera3D/ShapeCast3D
 @export var enemy: Node3D
 
+@onready var point_look = enemy.get_node("Point_look")
+
 # Variable that is used to detect if the enemy is on view
 var player_is_seeing_it = false
 
@@ -52,6 +54,11 @@ var pages = 0
 @onready var page_count = $HUD/page_count
 @onready var pagecast = $Head/Camera3D/Pagecast
 
+# The player is caught
+signal on_caught
+var is_caught = false
+var short_delay = 0
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -62,20 +69,27 @@ func _ready():
 	pagecast.add_exception(self)
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and not is_caught:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 func _physics_process(delta):
+	if is_caught:
+		head.global_transform = head.global_transform.interpolate_with(head.global_transform.looking_at(point_look.global_position), 1.0 * delta)
+	
 	page_near_check()
 	
-	health_handle()
+	if not is_caught:
+		health_handle()
+	else:
+		caught_health_handle()
 	
 	if Input.is_action_just_pressed("escape"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
-	movement(delta)
+	if not is_caught:
+		movement(delta)
 
 func movement(delta):
 	# Add the gravity.
@@ -161,6 +175,17 @@ func _headbob(time) -> Vector3:
 	pos.x = sin(time * BOB_FREQUENCY / 2) * BOB_AMPLITUDE
 	return pos
 
+func caught_health_handle():
+	if short_delay <= 60:
+		short_delay += 1
+	else:
+		if not radio_sound.playing:
+			radio_sound.play()
+		if radio_sound.volume_db <= -20:
+			radio_sound.volume_db += 0.1
+			
+		if tv_static.self_modulate.a < 1:
+			tv_static.self_modulate.a += 0.01
 
 func is_seeing_the_enemy():
 	if player_is_seeing_it:
@@ -178,3 +203,7 @@ func _on_set_view_true():
 
 func _on_set_view_false():
 	player_is_seeing_it = false
+
+
+func _on_on_caught():
+	is_caught = true
