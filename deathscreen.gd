@@ -13,7 +13,7 @@ var already_activated = false
 var second_del = 60
 
 func _process(delta):
-	if del <= 120 and not already_activated:
+	if del <= 60 and not already_activated:
 		del += 1
 	elif not already_activated:
 		is_delayed = false
@@ -33,4 +33,3 @@ func _process(delta):
 			second_del += 1
 		else:
 			get_tree().change_scene_to_file("res://retryscreen.tscn")
-		#get_tree().quit()

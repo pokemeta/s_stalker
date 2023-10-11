@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bx4c32rtac6jo"]
+[gd_scene load_steps=2 format=3 uid="uid://bx4c32rtac6jo"]
+
+[ext_resource type="Script" path="res://retryscreen.gd" id="1_nln7f"]
 
 [node name="Retry_screen" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_nln7f")
 
 [node name="background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -31,3 +34,5 @@ offset_bottom = 53.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Retry"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

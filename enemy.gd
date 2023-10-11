@@ -81,7 +81,7 @@ func ai_move():
 		move_and_slide()
 
 func aggresive_increment():
-	speed *= 9
+	speed *= 1
 	teleport_delay_timer -= 60
 
 func _on_visible_on_screen_notifier_3d_screen_entered():

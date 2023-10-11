@@ -475,8 +475,8 @@ shadow_enabled = true
 environment = SubResource("Environment_b2s7k")
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("teleport_points") instance=ExtResource("4_y8v5b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.49971, 1.0088, -2.85435)
-teleport_points = [NodePath("../Teleport_points/Point1"), NodePath("../Teleport_points/Point2"), NodePath("../Teleport_points/Point3"), NodePath("../Teleport_points/Point4"), NodePath("../Teleport_points/Point5"), NodePath("../Teleport_points/Point6"), NodePath("../Teleport_points/Point7"), NodePath("../Teleport_points/Point8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0, 62)
+teleport_points = [NodePath("../Teleport_points/Point1"), NodePath("../Teleport_points/Point2")]
 
 [node name="Playercontroller" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("6_5o7ut")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -601,28 +601,10 @@ block_data = SubResource("Resource_jiten")
 [node name="Teleport_points" type="Node3D" parent="."]
 
 [node name="Point1" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.24, 0, 15.5392)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.45703, 0, 38.7606)
 
 [node name="Point2" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.1055, 0, 40.8431)
-
-[node name="Point3" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.1055, 0, -55.2703)
-
-[node name="Point4" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.81016, 0, -70.8847)
-
-[node name="Point5" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.3328, 0, -70.8847)
-
-[node name="Point6" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.3667, 0, -32.0331)
-
-[node name="Point7" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.5902, 0, -16.3082)
-
-[node name="Point8" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.1378, 0.181282, 21.715)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.8384, 0, 27.4089)
 
 [node name="Pages" type="Node3D" parent="."]
 

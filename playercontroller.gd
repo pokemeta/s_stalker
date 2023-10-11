@@ -78,9 +78,13 @@ func _input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 func _physics_process(delta):
-	if tv_static.self_modulate.a >= 1:
+	if tv_static.self_modulate.a >= 0.8:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		get_tree().change_scene_to_file("res://deathscreen.tscn")
+	
+	if pages >= 8:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		get_tree().change_scene_to_file("res://winscreen.tscn")
 	
 	if is_caught:
 		head.global_transform = head.global_transform.interpolate_with(head.global_transform.looking_at(point_look.global_position), 1.0 * delta)
