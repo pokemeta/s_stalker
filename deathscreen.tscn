@@ -1,0 +1,115 @@
+[gd_scene load_steps=15 format=3 uid="uid://dvb338hyeegsi"]
+
+[ext_resource type="Script" path="res://deathscreen.gd" id="1_4j00i"]
+[ext_resource type="Texture2D" uid="uid://dkpww1k1i4o30" path="res://assets/static_frames/frame2.png" id="1_pxqb7"]
+[ext_resource type="Texture2D" uid="uid://23p2exxosifm" path="res://assets/static_frames/frame1.png" id="2_dfh02"]
+[ext_resource type="Texture2D" uid="uid://cl4vmfdsbne8w" path="res://assets/static_frames/frame3.png" id="3_aamna"]
+[ext_resource type="Texture2D" uid="uid://dbv6dheacpxhe" path="res://assets/static_frames/frame4.png" id="4_5yy5s"]
+[ext_resource type="Texture2D" uid="uid://craf3s6dc645o" path="res://assets/static_frames/frame5.png" id="5_x5jsj"]
+[ext_resource type="AudioStream" uid="uid://daoofdt7sdll7" path="res://assets/audio/sfx/tv/radio_sfx.ogg" id="7_b17mf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2giqv"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_2jjp0"]
+sky_material = SubResource("ProceduralSkyMaterial_2giqv")
+
+[sub_resource type="Environment" id="Environment_7k3jc"]
+background_mode = 1
+background_color = Color(0.0862745, 0.113725, 0.109804, 1)
+sky = SubResource("Sky_2jjp0")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vqwwd"]
+
+[sub_resource type="Animation" id="Animation_8wje8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tv_static:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_pxqb7")]
+}
+
+[sub_resource type="Animation" id="Animation_lj3td"]
+resource_name = "static"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tv_static:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_dfh02"), ExtResource("1_pxqb7"), ExtResource("3_aamna"), ExtResource("4_5yy5s"), ExtResource("5_x5jsj"), ExtResource("2_dfh02"), ExtResource("1_pxqb7"), ExtResource("3_aamna"), ExtResource("4_5yy5s"), ExtResource("5_x5jsj"), ExtResource("2_dfh02")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rsc0v"]
+_data = {
+"RESET": SubResource("Animation_8wje8"),
+"static": SubResource("Animation_lj3td")
+}
+
+[node name="Deathscreen" type="Node3D"]
+script = ExtResource("1_4j00i")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7k3jc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_vqwwd")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.828762, 1.63351)
+current = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.634, 2.44627, 1.78147)
+
+[node name="Static" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="tv_static" type="TextureRect" parent="Static"]
+self_modulate = Color(1, 1, 1, 0.380392)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_pxqb7")
+
+[node name="blackscreen" type="ColorRect" parent="Static"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="static_anim" type="AnimationPlayer" parent="Static"]
+speed_scale = 2.0
+libraries = {
+"": SubResource("AnimationLibrary_rsc0v")
+}
+
+[node name="radio_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_b17mf")
+volume_db = -30.0
