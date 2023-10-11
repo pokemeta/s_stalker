@@ -15,15 +15,30 @@ var init_timer = 0
 
 # Teleport vars
 @export var teleport_points: Array[Node3D]
+var teleport_delay_timer = 720 
 var delay_teleport = 0
 var selected_number
 
+signal increment_agressiveness
+
 func _physics_process(_delta):
+	check_floor()
 	
 	if not playercontroller.is_caught:
 		teleport()
 	
 	player_on_sight()
+
+# Floor detection to snap to floor in-game
+func check_floor():
+	if not is_on_floor():
+		var space = get_world_3d().direct_space_state
+		var ray_query = PhysicsRayQueryParameters3D.create(global_position, Vector3(0, -500, 0))
+		var results = space.intersect_ray(ray_query)
+		if results:
+			#print(results.position)
+			global_position = results.position
+			global_position.y += 1
 
 func player_on_sight():
 	var space = get_world_3d().direct_space_state
@@ -40,16 +55,17 @@ func player_on_sight():
 			playercontroller.emit_signal("set_view_false")
 
 func teleport():
-	if delay_teleport <= 720:
+	if delay_teleport <= teleport_delay_timer:
 		delay_teleport += 1
 	else:
-		var randomizer = randf_range(0, teleport_points.size())
-		while randomizer == selected_number:
-			randomizer = randf_range(0, teleport_points.size())
-		selected_number = randomizer
-		global_position = teleport_points[randomizer].global_position
-		global_position.y += 1
-		delay_teleport = 0
+		if teleport_points.size() >= 2:
+			var randomizer = randf_range(0, teleport_points.size())
+			while randomizer == selected_number:
+				randomizer = randf_range(0, teleport_points.size())
+			selected_number = randomizer
+			global_position = teleport_points[randomizer].global_position
+			global_position.y += 1
+			delay_teleport = 0
 
 func ai_move():
 	nav_agent.set_target_position(playercontroller.global_position)
@@ -64,13 +80,19 @@ func ai_move():
 		velocity = velocity.move_toward(new_velocity, 0.25)
 		move_and_slide()
 
+func aggresive_increment():
+	speed *= 3
+	teleport_delay_timer -= 60
+
 func _on_visible_on_screen_notifier_3d_screen_entered():
 	on_view = true
 
 func _on_visible_on_screen_notifier_3d_screen_exited():
 	on_view = false
 
-
 func _on_area_3d_body_entered(body):
 	if body == playercontroller:
 		playercontroller.emit_signal("on_caught")
+
+func _on_increment_agressiveness():
+	aggresive_increment()

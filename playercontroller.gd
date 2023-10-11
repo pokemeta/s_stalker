@@ -165,6 +165,7 @@ func page_near_check():
 func collected_page():
 	pages_sound.play()
 	pages += 1
+	enemy.emit_signal("increment_agressiveness")
 	var page_string = str(pages)
 	page_count.text = "Pages " + page_string + " out of 8 collected"
 	p_fade_animation.play("p_fade")

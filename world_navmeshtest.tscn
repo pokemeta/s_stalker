@@ -475,7 +475,7 @@ shadow_enabled = true
 environment = SubResource("Environment_b2s7k")
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("teleport_points") instance=ExtResource("4_y8v5b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.8845, 1, 64.366)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9094, 1.0088, 65.5459)
 teleport_points = [NodePath("../Teleport_points/Point1"), NodePath("../Teleport_points/Point2"), NodePath("../Teleport_points/Point3"), NodePath("../Teleport_points/Point4"), NodePath("../Teleport_points/Point5"), NodePath("../Teleport_points/Point6"), NodePath("../Teleport_points/Point7"), NodePath("../Teleport_points/Point8")]
 
 [node name="Playercontroller" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("6_5o7ut")]
