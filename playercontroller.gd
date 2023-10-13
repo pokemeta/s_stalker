@@ -160,7 +160,7 @@ func health_handle():
 			radio_sound.stop()
 			
 		if tv_static.self_modulate.a > 0:
-			tv_static.self_modulate.a -= 0.01
+			tv_static.self_modulate.a -= 0.001
 
 func page_near_check():
 	if pagecast.is_colliding():

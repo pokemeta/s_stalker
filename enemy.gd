@@ -18,6 +18,8 @@ var init_timer = 0
 var teleport_delay_timer = 720 
 var delay_teleport = 0
 var selected_number
+var minDistance = 5.0
+var maxDistance = 10.0
 
 signal increment_agressiveness
 
@@ -58,14 +60,12 @@ func teleport():
 	if delay_teleport <= teleport_delay_timer:
 		delay_teleport += 1
 	else:
-		if teleport_points.size() >= 2:
-			var randomizer = randf_range(0, teleport_points.size())
-			while randomizer == selected_number:
-				randomizer = randf_range(0, teleport_points.size())
-			selected_number = randomizer
-			global_position = teleport_points[randomizer].global_position
-			global_position.y += 1
-			delay_teleport = 0
+		var playerPos = playercontroller.transform.origin
+		var newX = playerPos.x + randf_range(-maxDistance, maxDistance)
+		var newZ = playerPos.z + randf_range(-maxDistance, maxDistance)
+		var newPos = Vector3(newX, transform.origin.y, newZ)
+		transform.origin = newPos
+		delay_teleport = 0
 
 func ai_move():
 	nav_agent.set_target_position(playercontroller.global_position)
@@ -81,7 +81,7 @@ func ai_move():
 		move_and_slide()
 
 func aggresive_increment():
-	speed *= 1
+	speed *= 4
 	teleport_delay_timer -= 60
 
 func _on_visible_on_screen_notifier_3d_screen_entered():

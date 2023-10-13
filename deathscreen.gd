@@ -12,7 +12,7 @@ var already_activated = false
 
 var second_del = 60
 
-func _process(delta):
+func _process(_delta):
 	if del <= 60 and not already_activated:
 		del += 1
 	elif not already_activated:
