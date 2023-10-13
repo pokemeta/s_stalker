@@ -18,8 +18,8 @@ var init_timer = 0
 var teleport_delay_timer = 720 
 var delay_teleport = 0
 var selected_number
-var minDistance = 5.0
-var maxDistance = 10.0
+var minDistance = 50.0
+var maxDistance = 100.0
 
 signal increment_agressiveness
 
@@ -83,6 +83,13 @@ func ai_move():
 func aggresive_increment():
 	speed *= 4
 	teleport_delay_timer -= 60
+	match playercontroller.pages:
+		3:
+			minDistance /= 2
+			maxDistance /= 2
+		6:
+			minDistance /= 5
+			maxDistance /= 5
 
 func _on_visible_on_screen_notifier_3d_screen_entered():
 	on_view = true
