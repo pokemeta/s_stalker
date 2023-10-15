@@ -94,6 +94,7 @@ func _physics_process(delta):
 	if not is_caught:
 		health_handle()
 	else:
+		Globals.pages_collected = pages
 		caught_health_handle()
 	
 	if Input.is_action_just_pressed("escape"):

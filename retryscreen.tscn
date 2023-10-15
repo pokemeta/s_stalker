@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bx4c32rtac6jo"]
+[gd_scene load_steps=3 format=3 uid="uid://bx4c32rtac6jo"]
 
 [ext_resource type="Script" path="res://retryscreen.gd" id="1_nln7f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5ufkg"]
+font_size = 32
 
 [node name="Retry_screen" type="Control"]
 layout_mode = 3
@@ -34,5 +37,21 @@ offset_bottom = 53.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Retry"
+
+[node name="Pagetext" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -128.0
+offset_right = 155.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Pages 0 / 8 collected"
+label_settings = SubResource("LabelSettings_5ufkg")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
