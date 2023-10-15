@@ -1,12 +1,13 @@
-[gd_scene load_steps=34 format=3 uid="uid://o6lkyfj4bujv"]
+[gd_scene load_steps=35 format=3 uid="uid://o6lkyfj4bujv"]
 
+[ext_resource type="Script" path="res://world_navmeshtest.gd" id="1_2ckvq"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_blocks.gd" id="1_4enxc"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_convex_block.gd" id="2_g0ba6"]
 [ext_resource type="Material" uid="uid://dkycgbrd348kf" path="res://materials/placeholder7.tres" id="3_pbeg4"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/convex_block_data.gd" id="3_tgtwi"]
 [ext_resource type="PackedScene" uid="uid://cuaj0gkhbg52t" path="res://enemy.tscn" id="4_y8v5b"]
 [ext_resource type="PackedScene" uid="uid://dw48lied41318" path="res://playercontroller.tscn" id="6_5o7ut"]
-[ext_resource type="PackedScene" uid="uid://dej1l8ydm5vkd" path="res://page.tscn" id="7_78ti2"]
+[ext_resource type="PackedScene" uid="uid://bgsmxlkab2s4u" path="res://spawnpoint.tscn" id="8_o5f2w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lp58l"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -466,6 +467,7 @@ active_face = -1
 face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
 [node name="World_navmeshtest" type="Node3D"]
+script = ExtResource("1_2ckvq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, -0.00372267, 33.1942, 0.00505924)
@@ -476,178 +478,237 @@ environment = SubResource("Environment_b2s7k")
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("teleport_points") instance=ExtResource("4_y8v5b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0, 62)
-teleport_points = [NodePath("../Teleport_points/Point1"), NodePath("../Teleport_points/Point2"), NodePath("../Teleport_points/Point3"), NodePath("../Teleport_points/Point4"), NodePath("../Teleport_points/Point5"), NodePath("../Teleport_points/Point6")]
+teleport_points = [NodePath(""), NodePath(""), NodePath(""), NodePath(""), NodePath(""), NodePath("")]
 
 [node name="Playercontroller" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("6_5o7ut")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 enemy = NodePath("../Enemy")
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="Terrain" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_q0dnt")
 
-[node name="CyclopsBlocks" type="Node3D" parent="NavigationRegion3D"]
+[node name="CyclopsBlocks" type="Node3D" parent="Terrain"]
 script = ExtResource("1_4enxc")
 
-[node name="Block_0" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_0" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_vvm7f")
 
-[node name="Block_1" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_1" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_8wkj2")
 
-[node name="Block_2" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_2" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_lb6fo")
 
-[node name="Block_3" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_3" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_gq86a")
 
-[node name="Block_4" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_4" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_x14wv")
 
-[node name="Block_5" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_5" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_xpx1k")
 
-[node name="Block_6" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_6" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_wjjsy")
 
-[node name="Block_7" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_7" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_1nkxo")
 
-[node name="Block_8" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_8" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_0ph0x")
 
-[node name="Block_9" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_9" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_7uvmd")
 
-[node name="Block_10" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_10" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_85buc")
 
-[node name="Block_11" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_11" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_pojmr")
 
-[node name="Block_20" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_20" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_nolyi")
 
-[node name="Block_12" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_12" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_l4p3g")
 
-[node name="Block_13" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_13" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_x4ki0")
 
-[node name="Block_14" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_14" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_dtme7")
 
-[node name="Block_15" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_15" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_oeslj")
 
-[node name="Block_16" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_16" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_a60xy")
 
-[node name="Block_17" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_17" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_5cml5")
 
-[node name="Block_18" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_18" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_r4x4m")
 
-[node name="Block_19" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_19" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_llrqj")
 
-[node name="Block_21" type="Node" parent="NavigationRegion3D/CyclopsBlocks"]
+[node name="Block_21" type="Node" parent="Terrain/CyclopsBlocks"]
 script = ExtResource("2_g0ba6")
 materials = Array[Material]([ExtResource("3_pbeg4")])
 block_data = SubResource("Resource_jiten")
 
-[node name="Teleport_points" type="Node3D" parent="."]
-
-[node name="Point1" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.45703, 0, 38.7606)
-
-[node name="Point2" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.8384, 0, 27.4089)
-
-[node name="Point3" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.773, 0, 8.8388)
-
-[node name="Point4" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.4691, 0, -6.04309)
-
-[node name="Point5" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6486, 1.90735e-06, -38.8331)
-
-[node name="Point6" type="Node3D" parent="Teleport_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.31772, 1.90735e-06, -71.3845)
-
 [node name="Pages" type="Node3D" parent="."]
 
-[node name="Page" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("7_78ti2")]
-transform = Transform3D(-1.10079e-09, 0, 0.356293, 0, 0.568065, 0, -0.0251831, 0, -1.55741e-08, -4.6096, 1.57473, 23.9679)
-playercontroller = NodePath("../../Playercontroller")
+[node name="Spawnpoint" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.49621, 2.10002, 23.9495)
 
-[node name="Page2" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("7_78ti2")]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, 19.9965, 1.57473, -4.94227)
-playercontroller = NodePath("../../Playercontroller")
+[node name="Spawnpoint2" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00449002, 2.10002, 27.8699)
 
-[node name="Page3" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("7_78ti2")]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -43.9931, 1.57473, -10.1298)
-playercontroller = NodePath("../../Playercontroller")
+[node name="Spawnpoint3" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -13.0141, 2.10002, 27.8699)
 
-[node name="Page4" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("7_78ti2")]
-transform = Transform3D(-1.10079e-09, 0, 0.356293, 0, 0.568065, 0, -0.0251831, 0, -1.55741e-08, -33.7509, 1.57473, -51.9931)
-playercontroller = NodePath("../../Playercontroller")
+[node name="Spawnpoint4" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -16.2325, 2.10002, 48.9786)
 
-[node name="Page5" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("7_78ti2")]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -49.9871, 1.57473, -59.6416)
-playercontroller = NodePath("../../Playercontroller")
+[node name="Spawnpoint5" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25.1062, 2.10002, 48.9786)
 
-[node name="Page6" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("7_78ti2")]
-transform = Transform3D(-1.10079e-09, 0, 0.356293, 0, 0.568065, 0, -0.0251831, 0, -1.55741e-08, 5.04856, 1.57473, -67.9912)
-playercontroller = NodePath("../../Playercontroller")
+[node name="Spawnpoint6" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -34.2303, 2.10002, 48.9786)
 
-[node name="Page7" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("7_78ti2")]
-transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, 36.9858, 1.57473, 23.9679)
-playercontroller = NodePath("../../Playercontroller")
+[node name="Spawnpoint7" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.9806, 2.10002, 6.26088)
 
-[node name="Page8" parent="Pages" node_paths=PackedStringArray("playercontroller") instance=ExtResource("7_78ti2")]
-transform = Transform3D(0.0233076, 0, 0.134921, 0, 0.568065, 0, -0.00953636, 0, 0.329759, -12.6344, 0.595551, -6.55426)
-playercontroller = NodePath("../../Playercontroller")
+[node name="Spawnpoint8" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.9806, 2.10002, 14.0394)
+
+[node name="Spawnpoint9" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.9806, 2.10002, 22.5764)
+
+[node name="Spawnpoint10" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.9813, 2.10002, -8.68431)
+
+[node name="Spawnpoint11" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -48.0213, 2.10002, -7.68186)
+
+[node name="Spawnpoint12" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.9807, 2.10002, -25.1135)
+
+[node name="Spawnpoint13" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.9807, 2.10002, -35.0176)
+
+[node name="Spawnpoint14" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.9807, 2.10002, -44.7707)
+
+[node name="Spawnpoint15" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -33.6576, 2.10002, -51.9861)
+
+[node name="Spawnpoint16" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -33.6576, 2.10002, -58.0211)
+
+[node name="Spawnpoint17" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.52754, 2.10002, -67.9787)
+
+[node name="Spawnpoint18" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.7454, 2.10002, -67.9787)
+
+[node name="Spawnpoint19" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 18.7902, 2.10002, -67.9787)
+
+[node name="Spawnpoint20" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9786, 2.10002, -9.85014)
+
+[node name="Spawnpoint21" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-0.425985, 0, -0.90473, 0, 1, 0, 0.90473, 0, -0.425985, 24.1883, 2.08649, -15.057)
+
+[node name="Spawnpoint22" parent="Pages" instance=ExtResource("8_o5f2w")]
+transform = Transform3D(-0.324528, 0, 0.945876, 0, 1, 0, -0.945876, 0, -0.324528, 22.8466, 2.10002, -3.98344)
+
+[connection signal="body_entered" from="Pages/Spawnpoint" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint2" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint2" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint3" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint3" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint4" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint4" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint5" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint5" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint6" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint6" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint7" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint7" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint8" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint8" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint9" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint9" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint10" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint10" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint11" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint11" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint12" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint12" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint13" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint13" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint14" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint14" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint15" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint15" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint16" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint16" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint17" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint17" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint18" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint18" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint19" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint19" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint20" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint20" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint21" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint21" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="body_entered" from="Pages/Spawnpoint22" to="Playercontroller" method="_on_spawnpoint_body_entered"]
+[connection signal="body_exited" from="Pages/Spawnpoint22" to="Playercontroller" method="_on_spawnpoint_body_exited"]

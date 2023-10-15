@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgsmxlkab2s4u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_atl71"]
+size = Vector3(2.26676, 2.17682, 3.60778)
+
+[node name="Spawnpoint" type="Area3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_atl71")

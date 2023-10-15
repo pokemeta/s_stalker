@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnr5jfw6u3vwv"]
+
+[ext_resource type="Script" path="res://page_class.gd" id="1_78f1h"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nucw6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5vfqf"]
+size = Vector3(0.0722502, 1, 0.639288)
+
+[node name="Pagetest" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_78f1h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.75437e-08, 0, 0.0286968, 0, 1, 0, -0.630126, 0, -1.25438e-09, 0, 0, 0)
+layers = 2
+mesh = SubResource("BoxMesh_nucw6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_5vfqf")
+
+[connection signal="destroy_page" from="." to="." method="_on_destroy_page"]

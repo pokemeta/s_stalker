@@ -219,3 +219,11 @@ func _on_set_view_false():
 
 func _on_on_caught():
 	is_caught = true
+
+func _on_spawnpoint_body_entered(body):
+	if body == self:
+		is_close_to_page = true
+
+func _on_spawnpoint_body_exited(body):
+	if body == self:
+		is_close_to_page = false

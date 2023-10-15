@@ -28,7 +28,7 @@ func _physics_process(_delta):
 	
 	if not playercontroller.is_caught:
 		teleport()
-	
+
 	player_on_sight()
 
 # Floor detection to snap to floor in-game
