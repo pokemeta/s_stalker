@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://o6lkyfj4bujv"]
+[gd_scene load_steps=37 format=3 uid="uid://o6lkyfj4bujv"]
 
 [ext_resource type="Script" path="res://world_navmeshtest.gd" id="1_2ckvq"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_blocks.gd" id="1_4enxc"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cuaj0gkhbg52t" path="res://enemy.tscn" id="4_y8v5b"]
 [ext_resource type="PackedScene" uid="uid://dw48lied41318" path="res://playercontroller.tscn" id="6_5o7ut"]
 [ext_resource type="PackedScene" uid="uid://bgsmxlkab2s4u" path="res://spawnpoint.tscn" id="8_o5f2w"]
+[ext_resource type="Script" path="res://pausemenu.gd" id="9_twgvl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lp58l"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -466,6 +467,9 @@ face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
 active_face = -1
 face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
+[sub_resource type="LabelSettings" id="LabelSettings_fj7cw"]
+font_size = 32
+
 [node name="World_navmeshtest" type="Node3D"]
 script = ExtResource("1_2ckvq")
 
@@ -667,6 +671,101 @@ transform = Transform3D(-0.425985, 0, -0.90473, 0, 1, 0, 0.90473, 0, -0.425985, 
 [node name="Spawnpoint22" parent="Pages" instance=ExtResource("8_o5f2w")]
 transform = Transform3D(-0.324528, 0, 0.945876, 0, 1, 0, -0.945876, 0, -0.324528, 22.8466, 2.10002, -3.98344)
 
+[node name="Pause_menu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_twgvl")
+
+[node name="Background" type="ColorRect" parent="Pause_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.568627)
+
+[node name="Pause_text" type="Label" parent="Pause_menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.5
+offset_top = 100.0
+offset_right = 28.5
+offset_bottom = 126.0
+grow_horizontal = 2
+text = "Paused"
+label_settings = SubResource("LabelSettings_fj7cw")
+
+[node name="Buttons" type="VBoxContainer" parent="Pause_menu"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.5
+offset_top = -55.0
+offset_right = 109.5
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Return" type="Button" parent="Pause_menu/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Return
+"
+
+[node name="Configuration" type="Button" parent="Pause_menu/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Configuration"
+
+[node name="Quit" type="Button" parent="Pause_menu/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Quit"
+
+[node name="ConfigButtons" type="VBoxContainer" parent="Pause_menu"]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.5
+offset_top = -50.5
+offset_right = 109.5
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fullscreen_check" type="CheckBox" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Full screen"
+
+[node name="Apply" type="Button" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Apply"
+
+[node name="Back" type="Button" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Back"
+
 [connection signal="body_entered" from="Pages/Spawnpoint" to="Playercontroller" method="_on_spawnpoint_body_entered"]
 [connection signal="body_exited" from="Pages/Spawnpoint" to="Playercontroller" method="_on_spawnpoint_body_exited"]
 [connection signal="body_entered" from="Pages/Spawnpoint2" to="Playercontroller" method="_on_spawnpoint_body_entered"]
@@ -711,3 +810,8 @@ transform = Transform3D(-0.324528, 0, 0.945876, 0, 1, 0, -0.945876, 0, -0.324528
 [connection signal="body_exited" from="Pages/Spawnpoint21" to="Playercontroller" method="_on_spawnpoint_body_exited"]
 [connection signal="body_entered" from="Pages/Spawnpoint22" to="Playercontroller" method="_on_spawnpoint_body_entered"]
 [connection signal="body_exited" from="Pages/Spawnpoint22" to="Playercontroller" method="_on_spawnpoint_body_exited"]
+[connection signal="pressed" from="Pause_menu/Buttons/Return" to="Pause_menu" method="_on_return_pressed"]
+[connection signal="pressed" from="Pause_menu/Buttons/Configuration" to="Pause_menu" method="_on_configuration_pressed"]
+[connection signal="pressed" from="Pause_menu/Buttons/Quit" to="Pause_menu" method="_on_quit_pressed"]
+[connection signal="pressed" from="Pause_menu/ConfigButtons/Apply" to="Pause_menu" method="_on_apply_pressed"]
+[connection signal="pressed" from="Pause_menu/ConfigButtons/Back" to="Pause_menu" method="_on_back_pressed"]

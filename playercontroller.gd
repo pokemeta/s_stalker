@@ -62,6 +62,9 @@ var short_delay = 0
 @onready var blackscreen = $HUD/blackscreen
 var blackscreen_delay = 0
 
+# Pause variables
+@onready var pause_menu = $"../Pause_menu"
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -98,6 +101,8 @@ func _physics_process(delta):
 		caught_health_handle()
 	
 	if Input.is_action_just_pressed("escape"):
+		pause_menu.visible = true
+		get_tree().paused = true
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	if not is_caught:
