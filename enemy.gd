@@ -14,8 +14,7 @@ var speed = 25.0
 var init_timer = 0
 
 # Teleport vars
-@export var teleport_points: Array[Node3D]
-var teleport_delay_timer = 660 
+var teleport_delay_timer = 660
 var delay_teleport = 0
 var selected_number
 var minDistance = 50.0
@@ -65,6 +64,7 @@ func teleport():
 		var newZ = playerPos.z + randf_range(-maxDistance, maxDistance)
 		var newPos = Vector3(newX, transform.origin.y, newZ)
 		transform.origin = newPos
+		look_at(playercontroller.global_position)
 		delay_teleport = 0
 
 func ai_move(delta):
@@ -78,6 +78,7 @@ func ai_move(delta):
 		var new_velocity = (next_location - current_location).normalized() * speed * delta
 	
 		velocity = velocity.move_toward(new_velocity, 0.25)
+		look_at(playercontroller.global_position)
 		move_and_slide()
 
 func aggresive_increment():
@@ -100,6 +101,7 @@ func _on_visible_on_screen_notifier_3d_screen_exited():
 
 func _on_area_3d_body_entered(body):
 	if body == playercontroller:
+		look_at(playercontroller.global_position)
 		playercontroller.emit_signal("on_caught")
 
 func _on_increment_agressiveness():

@@ -1,13 +1,12 @@
 [gd_scene load_steps=5 format=3 uid="uid://cuaj0gkhbg52t"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_eudsj"]
+[ext_resource type="PackedScene" uid="uid://c80v0u5m6qutr" path="res://meshes/enemy_capsule.blend" id="2_fglx7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_11wmy"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_2ppts"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_tu476"]
-size = Vector3(1.16276, 2.01759, 1.33333)
+size = Vector3(0.818299, 2.01759, 0.79335)
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_eudsj")
@@ -15,11 +14,10 @@ script = ExtResource("1_eudsj")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_11wmy")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_2ppts")
+[node name="enemy_capsule" parent="." instance=ExtResource("2_fglx7")]
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
-aabb = AABB(-0.589569, -1, -0.566728, 1.17914, 2, 1.13346)
+aabb = AABB(-0.383588, -1, -0.388316, 0.767179, 2, 0.776635)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -29,7 +27,7 @@ aabb = AABB(-0.589569, -1, -0.566728, 1.17914, 2, 1.13346)
 shape = SubResource("BoxShape3D_tu476")
 
 [node name="Point_look" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.934426, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.677764, 0)
 
 [connection signal="increment_agressiveness" from="." to="." method="_on_increment_agressiveness"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]

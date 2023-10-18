@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dvb338hyeegsi"]
+[gd_scene load_steps=16 format=3 uid="uid://dvb338hyeegsi"]
 
 [ext_resource type="Script" path="res://deathscreen.gd" id="1_4j00i"]
 [ext_resource type="Texture2D" uid="uid://dkpww1k1i4o30" path="res://assets/static_frames/frame2.png" id="1_pxqb7"]
 [ext_resource type="Texture2D" uid="uid://23p2exxosifm" path="res://assets/static_frames/frame1.png" id="2_dfh02"]
+[ext_resource type="PackedScene" uid="uid://c80v0u5m6qutr" path="res://meshes/enemy_capsule.blend" id="2_lc2yi"]
 [ext_resource type="Texture2D" uid="uid://cl4vmfdsbne8w" path="res://assets/static_frames/frame3.png" id="3_aamna"]
 [ext_resource type="Texture2D" uid="uid://dbv6dheacpxhe" path="res://assets/static_frames/frame4.png" id="4_5yy5s"]
 [ext_resource type="Texture2D" uid="uid://craf3s6dc645o" path="res://assets/static_frames/frame5.png" id="5_x5jsj"]
@@ -68,7 +69,11 @@ script = ExtResource("1_4j00i")
 environment = SubResource("Environment_7k3jc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("CapsuleMesh_vqwwd")
+
+[node name="enemy_capsule" parent="." instance=ExtResource("2_lc2yi")]
+transform = Transform3D(-1.5, 0, -2.26494e-07, 0, 1.5, 0, 2.26494e-07, 0, -1.5, 0, -0.013, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.828762, 1.63351)
