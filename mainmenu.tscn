@@ -20,7 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Main_container" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -34,16 +34,54 @@ offset_bottom = 113.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayButton" type="Button" parent="VBoxContainer"]
+[node name="PlayButton" type="Button" parent="Main_container"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Play"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="ConfigButton" type="Button" parent="Main_container"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Configuration"
+
+[node name="QuitButton" type="Button" parent="Main_container"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Quit
 "
 
-[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="Config_container" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.5
+offset_top = -64.0
+offset_right = 129.5
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fullscreen_check" type="CheckBox" parent="Config_container"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Full screen"
+
+[node name="ApplyButton" type="Button" parent="Config_container"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Apply"
+
+[node name="ReturnButton" type="Button" parent="Config_container"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Back"
+
+[connection signal="pressed" from="Main_container/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Main_container/ConfigButton" to="." method="_on_config_button_pressed"]
+[connection signal="pressed" from="Main_container/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Config_container/ApplyButton" to="." method="_on_apply_button_pressed"]
+[connection signal="pressed" from="Config_container/ReturnButton" to="." method="_on_return_button_pressed"]
