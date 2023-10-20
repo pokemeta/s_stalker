@@ -66,10 +66,12 @@ var blackscreen_delay = 0
 @onready var pause_menu = $"../Pause_menu"
 
 # Flashlight variables
-@onready var flashlight_model = $Head/Camera3D/Flashlight_model_placeholder
-@onready var flashlight_light = $Head/Camera3D/Flashlight_model_placeholder/Flashlight_light
+@onready var flashlight = $Flashlight
+@onready var flashlight_model = $Flashlight/Flashlight_model_placeholder
+@onready var flashlight_light = $Flashlight/Flashlight_model_placeholder/Flashlight_light
 @onready var flashlight_sound = $flashlight_sound
 var flashlight_turned = true
+const FLASHLIGHT_FOLLOW_SPEED = 15.0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -114,7 +116,7 @@ func _physics_process(delta):
 	if not is_caught:
 		movement(delta)
 	
-	flashlight_function()
+	flashlight_function(delta)
 
 func movement(delta):
 	# Add the gravity.
@@ -223,7 +225,7 @@ func is_seeing_the_enemy():
 
 	return false
 
-func flashlight_function():
+func flashlight_function(delta):
 	if Input.is_action_just_pressed("flashlight"):
 		flashlight_sound.play()
 		if flashlight_turned:
@@ -231,6 +233,14 @@ func flashlight_function():
 		else:
 			flashlight_turned = true
 		flashlight_light.visible = flashlight_turned
+	
+	var target_rotation = head.transform.basis.get_euler()
+	target_rotation.x = camera.transform.basis.get_euler().x
+
+	var desired_basis = Basis().rotated(Vector3(1, 0, 0), target_rotation.x)
+	desired_basis = desired_basis.rotated(Vector3(0, 1, 0), target_rotation.y)
+
+	flashlight.transform.basis = flashlight.transform.basis.slerp(desired_basis, delta * FLASHLIGHT_FOLLOW_SPEED)
 
 func _on_set_view_true():
 	player_is_seeing_it = true

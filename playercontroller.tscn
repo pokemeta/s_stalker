@@ -17,8 +17,6 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t61v6"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_5ue36"]
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_h3yiq"]
 margin = 0.0
 radius = 0.1
@@ -26,6 +24,8 @@ radius = 0.1
 [sub_resource type="SphereShape3D" id="SphereShape3D_7k7g6"]
 margin = 0.0
 radius = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ue36"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kydfm"]
 font_size = 32
@@ -136,16 +136,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.521406, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
 
-[node name="Flashlight_model_placeholder" type="MeshInstance3D" parent="Head/Camera3D"]
-transform = Transform3D(0.134818, 0, 0.0843113, 0, 0.13358, 0, -0.0242358, 0, 0.469005, 0.444, -0.307, -0.476)
-mesh = SubResource("BoxMesh_5ue36")
-skeleton = NodePath("../../..")
-
-[node name="Flashlight_light" type="SpotLight3D" parent="Head/Camera3D/Flashlight_model_placeholder"]
-light_energy = 2.0
-spot_range = 5.92147
-spot_angle = 29.7021
-
 [node name="ShapeCast3D" type="ShapeCast3D" parent="Head/Camera3D"]
 shape = SubResource("SphereShape3D_h3yiq")
 target_position = Vector3(0, 0, -100)
@@ -154,6 +144,19 @@ target_position = Vector3(0, 0, -100)
 shape = SubResource("SphereShape3D_7k7g6")
 target_position = Vector3(0, 0, -3)
 collision_mask = 2
+
+[node name="Flashlight" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.521406, 0)
+
+[node name="Flashlight_model_placeholder" type="MeshInstance3D" parent="Flashlight"]
+transform = Transform3D(0.134818, 0, 0.0843113, 0, 0.13358, 0, -0.0242358, 0, 0.469005, 0.444, -0.307, -0.476)
+mesh = SubResource("BoxMesh_5ue36")
+skeleton = NodePath("../..")
+
+[node name="Flashlight_light" type="SpotLight3D" parent="Flashlight/Flashlight_model_placeholder"]
+light_energy = 2.0
+spot_range = 5.92147
+spot_angle = 29.7021
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
