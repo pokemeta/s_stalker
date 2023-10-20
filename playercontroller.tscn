@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dw48lied41318"]
+[gd_scene load_steps=27 format=3 uid="uid://dw48lied41318"]
 
 [ext_resource type="Script" path="res://playercontroller.gd" id="1_otej2"]
 [ext_resource type="Texture2D" uid="uid://23p2exxosifm" path="res://assets/static_frames/frame1.png" id="2_rmmqo"]
@@ -11,10 +11,13 @@
 [ext_resource type="AudioStream" uid="uid://cuexsga711ly1" path="res://assets/audio/sfx/pages/page_sfx2.ogg" id="9_3kva0"]
 [ext_resource type="AudioStream" uid="uid://dv2g3fodoa2kn" path="res://assets/audio/sfx/pages/page_sfx3.ogg" id="10_6y2h8"]
 [ext_resource type="AudioStream" uid="uid://dwx3ypjhmmbqj" path="res://assets/audio/sfx/pages/page_sfx4.ogg" id="11_lpl7e"]
+[ext_resource type="AudioStream" uid="uid://c4xrcid3206fy" path="res://assets/audio/sfx/flaslight_sfx.ogg" id="12_x7ecp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ytj2u"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t61v6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ue36"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_h3yiq"]
 margin = 0.0
@@ -133,6 +136,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.521406, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
 
+[node name="Flashlight_model_placeholder" type="MeshInstance3D" parent="Head/Camera3D"]
+transform = Transform3D(0.134818, 0, 0.0843113, 0, 0.13358, 0, -0.0242358, 0, 0.469005, 0.444, -0.307, -0.476)
+mesh = SubResource("BoxMesh_5ue36")
+skeleton = NodePath("../../..")
+
+[node name="Flashlight_light" type="SpotLight3D" parent="Head/Camera3D/Flashlight_model_placeholder"]
+light_energy = 2.0
+spot_range = 5.92147
+spot_angle = 29.7021
+
 [node name="ShapeCast3D" type="ShapeCast3D" parent="Head/Camera3D"]
 shape = SubResource("SphereShape3D_h3yiq")
 target_position = Vector3(0, 0, -100)
@@ -221,6 +234,9 @@ volume_db = -30.0
 [node name="pages_sound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_kujci")
 volume_db = -10.0
+
+[node name="flashlight_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_x7ecp")
 
 [connection signal="on_caught" from="." to="." method="_on_on_caught"]
 [connection signal="set_view_false" from="." to="." method="_on_set_view_false"]

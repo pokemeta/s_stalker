@@ -22,13 +22,17 @@ var maxDistance = 100.0
 
 signal increment_agressiveness
 
-func _physics_process(delta):
-	check_floor()
-	
-	if not playercontroller.is_caught:
-		teleport()
+# To determine if it should start being active or not
+var active = false
 
-	player_on_sight(delta)
+func _physics_process(delta):
+	if active:
+		check_floor()
+		
+		if not playercontroller.is_caught:
+			teleport()
+
+		player_on_sight(delta)
 
 # Floor detection to snap to floor in-game
 func check_floor():
@@ -84,6 +88,8 @@ func ai_move(delta):
 func aggresive_increment():
 	teleport_delay_timer -= 60
 	match playercontroller.pages:
+		1:
+			active = true
 		3:
 			speed *= 4
 			minDistance /= 2

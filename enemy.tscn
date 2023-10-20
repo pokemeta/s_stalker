@@ -4,9 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://c80v0u5m6qutr" path="res://meshes/enemy_capsule.blend" id="2_fglx7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_11wmy"]
+radius = 0.414259
+height = 2.00269
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tu476"]
-size = Vector3(0.818299, 2.01759, 0.79335)
+size = Vector3(0.879835, 2.01759, 0.872393)
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_eudsj")

@@ -65,6 +65,12 @@ var blackscreen_delay = 0
 # Pause variables
 @onready var pause_menu = $"../Pause_menu"
 
+# Flashlight variables
+@onready var flashlight_model = $Head/Camera3D/Flashlight_model_placeholder
+@onready var flashlight_light = $Head/Camera3D/Flashlight_model_placeholder/Flashlight_light
+@onready var flashlight_sound = $flashlight_sound
+var flashlight_turned = true
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -73,7 +79,7 @@ func _ready():
 	# This is done because the raycast would always detect the player
 	shapecast.add_exception(self)
 	pagecast.add_exception(self)
-
+	
 func _input(event):
 	if event is InputEventMouseMotion and not is_caught:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
@@ -107,6 +113,8 @@ func _physics_process(delta):
 	
 	if not is_caught:
 		movement(delta)
+	
+	flashlight_function()
 
 func movement(delta):
 	# Add the gravity.
@@ -114,8 +122,8 @@ func movement(delta):
 		velocity.y -= gravity * delta
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+#	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+#		velocity.y = JUMP_VELOCITY
 	
 	# Handle sprint.
 	if Input.is_action_pressed("sprint"):
@@ -214,6 +222,15 @@ func is_seeing_the_enemy():
 			return true
 
 	return false
+
+func flashlight_function():
+	if Input.is_action_just_pressed("flashlight"):
+		flashlight_sound.play()
+		if flashlight_turned:
+			flashlight_turned = false
+		else:
+			flashlight_turned = true
+		flashlight_light.visible = flashlight_turned
 
 func _on_set_view_true():
 	player_is_seeing_it = true
