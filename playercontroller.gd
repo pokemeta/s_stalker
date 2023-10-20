@@ -18,8 +18,8 @@ const SENSITIVITY = 0.003
 @onready var head = $Head
 
 # Head bob variables
-const BOB_FREQUENCY = 2.0
-const BOB_AMPLITUDE = 0.08
+const BOB_FREQUENCY = 1.0
+const BOB_AMPLITUDE = 0.03
 var t_bob = 0.0
 
 # FOV variables
