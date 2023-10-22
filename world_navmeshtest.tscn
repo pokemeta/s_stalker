@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://o6lkyfj4bujv"]
+[gd_scene load_steps=39 format=3 uid="uid://o6lkyfj4bujv"]
 
 [ext_resource type="Script" path="res://world_navmeshtest.gd" id="1_2ckvq"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_blocks.gd" id="1_4enxc"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dw48lied41318" path="res://playercontroller.tscn" id="6_5o7ut"]
 [ext_resource type="PackedScene" uid="uid://bgsmxlkab2s4u" path="res://spawnpoint.tscn" id="8_o5f2w"]
 [ext_resource type="Script" path="res://pausemenu.gd" id="9_twgvl"]
+[ext_resource type="Script" path="res://debug_hud.gd" id="10_c3fdb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lp58l"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -471,6 +472,8 @@ face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 [sub_resource type="LabelSettings" id="LabelSettings_fj7cw"]
 font_size = 32
 
+[sub_resource type="LabelSettings" id="LabelSettings_elrtg"]
+
 [node name="World_navmeshtest" type="Node3D"]
 script = ExtResource("1_2ckvq")
 
@@ -767,6 +770,62 @@ text = "Apply"
 layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
+
+[node name="DebugHUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_c3fdb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugHUD"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 68.0
+offset_right = 445.0
+offset_bottom = 309.0
+
+[node name="Label" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Slender data"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Active_state" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Active:"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Enemyposition" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Position: (x, y, z)"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Timer_total" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Current teleport timer delay:"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Timer_counter" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Current timer teleport counter:"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Label2" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Player data"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Pages_count" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Pages: 0"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="tvstatic_opacity" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Static opacity: 0.0"
+label_settings = SubResource("LabelSettings_elrtg")
 
 [connection signal="body_entered" from="Pages/Spawnpoint" to="Playercontroller" method="_on_spawnpoint_body_entered"]
 [connection signal="body_exited" from="Pages/Spawnpoint" to="Playercontroller" method="_on_spawnpoint_body_exited"]

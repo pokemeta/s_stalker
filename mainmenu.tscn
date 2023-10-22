@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://djtg57vv8uep7"]
+[gd_scene load_steps=3 format=3 uid="uid://djtg57vv8uep7"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_600g6"]
+[ext_resource type="AudioStream" uid="uid://co6dknix8632l" path="res://assets/audio/music/Menu.ogg" id="2_v2woq"]
 
 [node name="Main_menu" type="Control"]
 layout_mode = 3
@@ -79,6 +80,10 @@ text = "Apply"
 layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
+
+[node name="BG_menu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_v2woq")
+volume_db = -10.0
 
 [connection signal="pressed" from="Main_container/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Main_container/ConfigButton" to="." method="_on_config_button_pressed"]

@@ -73,6 +73,13 @@ var blackscreen_delay = 0
 var flashlight_turned = true
 const FLASHLIGHT_FOLLOW_SPEED = 15.0
 
+# Background music vars
+@onready var bg_music = $BG_Music
+@onready var pages_ambience1 = preload("res://assets/audio/music/AnxietyPages1-2.ogg")
+@onready var pages_ambience2 = preload("res://assets/audio/music/AnxietyPages3-4.ogg")
+@onready var pages_ambience3 = preload("res://assets/audio/music/AnxietyPages5-6.ogg")
+@onready var pages_ambience4 = preload("res://assets/audio/music/AnxietyPage7.ogg")
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -81,6 +88,8 @@ func _ready():
 	# This is done because the raycast would always detect the player
 	shapecast.add_exception(self)
 	pagecast.add_exception(self)
+	
+	bg_music.play()
 	
 func _input(event):
 	if event is InputEventMouseMotion and not is_caught:
@@ -177,6 +186,8 @@ func health_handle():
 			
 		if tv_static.self_modulate.a > 0:
 			tv_static.self_modulate.a -= 0.001
+		else:
+			tv_static.self_modulate.a = 0
 
 func page_near_check():
 	if pagecast.is_colliding():
@@ -196,6 +207,8 @@ func collected_page():
 	var page_string = str(pages)
 	page_count.text = "Pages " + page_string + " out of 8 collected"
 	p_fade_animation.play("p_fade")
+	
+	change_bgmusic_track()
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
@@ -241,6 +254,19 @@ func flashlight_function(delta):
 	desired_basis = desired_basis.rotated(Vector3(0, 1, 0), target_rotation.y)
 
 	flashlight.transform.basis = flashlight.transform.basis.slerp(desired_basis, delta * FLASHLIGHT_FOLLOW_SPEED)
+
+func change_bgmusic_track():
+	bg_music.stop()
+	match(pages):
+		1:
+			bg_music.stream = pages_ambience1
+		3:
+			bg_music.stream = pages_ambience2
+		5:
+			bg_music.stream = pages_ambience3
+		7:
+			bg_music.stream = pages_ambience4
+	bg_music.play()
 
 func _on_set_view_true():
 	player_is_seeing_it = true

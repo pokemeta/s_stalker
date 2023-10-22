@@ -14,7 +14,7 @@ var speed = 25.0
 var init_timer = 0
 
 # Teleport vars
-var teleport_delay_timer = 660
+var teleport_delay_timer = 840
 var delay_teleport = 0
 var selected_number
 var minDistance = 50.0

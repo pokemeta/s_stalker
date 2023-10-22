@@ -5,8 +5,11 @@ extends Control
 
 @onready var fullscreen_check = $Config_container/Fullscreen_check
 
+@onready var bg_menu = $BG_menu
+
 func _ready():
 	fullscreen_check.button_pressed = Globals.fullscreen
+	bg_menu.play()
 
 func _on_play_button_pressed():
 	get_tree().change_scene_to_file("res://world_navmeshtest.tscn")
