@@ -3,9 +3,16 @@ extends Control
 @onready var buttons = $Buttons
 @onready var config_buttons = $ConfigButtons
 @onready var fullscreen_check = $ConfigButtons/Fullscreen_check
+@onready var resolution_options = $ConfigButtons/ResolutionOptions
 
 func _ready():
 	fullscreen_check.button_pressed = Globals.fullscreen
+	resolution_options.disabled = Globals.fullscreen
+	add_items()
+
+func add_items():
+	resolution_options.add_item("800x600")
+	resolution_options.add_item("1152x648")
 
 func _on_return_pressed():
 	visible = false
@@ -20,8 +27,22 @@ func _on_back_pressed():
 	buttons.visible = true
 	config_buttons.visible = false
 
+func _on_resolution_options_item_selected(index):
+	var current_selected = index
+	var width = 0
+	var height = 0
+	match(current_selected):
+		0:
+			width = 800
+			height = 600
+		1:
+			width = 1152
+			height = 648
+	Globals.set_window_resolution(width, height)
+
 func _on_apply_pressed():
 	Globals.fullscreen = fullscreen_check.button_pressed
+	resolution_options.disabled = Globals.fullscreen
 	Globals.save_settings()
 
 func _on_quit_pressed():

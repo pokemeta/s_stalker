@@ -4,11 +4,15 @@ extends Control
 @onready var config_container = $Config_container
 
 @onready var fullscreen_check = $Config_container/Fullscreen_check
+@onready var resolution_options = $Config_container/ResolutionOptions
 
 @onready var bg_menu = $BG_menu
 
 func _ready():
+	add_items()
+	
 	fullscreen_check.button_pressed = Globals.fullscreen
+	resolution_options.disabled = Globals.fullscreen
 	bg_menu.play()
 
 func _on_play_button_pressed():
@@ -24,7 +28,27 @@ func _on_config_button_pressed():
 func _on_return_button_pressed():
 	main_container.visible = true
 	config_container.visible = false
+	
+func _on_resolution_options_item_selected(index):
+	var current_selected = index
+	var width = 0
+	var height = 0
+	match(current_selected):
+		0:
+			width = 800
+			height = 600
+		1:
+			width = 1152
+			height = 648
+	Globals.set_window_resolution(width, height)
+
+func add_items():
+	resolution_options.add_item("800x600")
+	resolution_options.add_item("1152x648")
 
 func _on_apply_button_pressed():
 	Globals.fullscreen = fullscreen_check.button_pressed
+	resolution_options.disabled = Globals.fullscreen
 	Globals.save_settings()
+
+

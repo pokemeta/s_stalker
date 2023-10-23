@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://djtg57vv8uep7"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_600g6"]
-[ext_resource type="AudioStream" uid="uid://co6dknix8632l" path="res://assets/audio/music/Menu.ogg" id="2_v2woq"]
+[ext_resource type="AudioStream" uid="uid://dqex0p10siibx" path="res://assets/audio/music/Menu.ogg" id="2_v2woq"]
 
 [node name="Main_menu" type="Control"]
 layout_mode = 3
@@ -71,6 +71,13 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Full screen"
 
+[node name="ResolutionLabel" type="Label" parent="Config_container"]
+layout_mode = 2
+text = "Resolution:"
+
+[node name="ResolutionOptions" type="OptionButton" parent="Config_container"]
+layout_mode = 2
+
 [node name="ApplyButton" type="Button" parent="Config_container"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -88,5 +95,6 @@ volume_db = -10.0
 [connection signal="pressed" from="Main_container/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Main_container/ConfigButton" to="." method="_on_config_button_pressed"]
 [connection signal="pressed" from="Main_container/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="item_selected" from="Config_container/ResolutionOptions" to="." method="_on_resolution_options_item_selected"]
 [connection signal="pressed" from="Config_container/ApplyButton" to="." method="_on_apply_button_pressed"]
 [connection signal="pressed" from="Config_container/ReturnButton" to="." method="_on_return_button_pressed"]
