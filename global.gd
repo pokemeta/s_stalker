@@ -47,7 +47,8 @@ func apply_settings():
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
-	get_window().size = screen_resolution
-	var screen_size = DisplayServer.screen_get_size()
-	var window_size = get_window().size
-	get_window().position = screen_size*0.5 - window_size*0.5
+	if not fullscreen:
+		get_window().size = screen_resolution
+		var screen_size = DisplayServer.screen_get_size()
+		var window_size = get_window().size
+		get_window().position = screen_size*0.5 - window_size*0.5
