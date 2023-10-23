@@ -469,10 +469,10 @@ face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
 active_face = -1
 face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
+[sub_resource type="LabelSettings" id="LabelSettings_elrtg"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_fj7cw"]
 font_size = 32
-
-[sub_resource type="LabelSettings" id="LabelSettings_elrtg"]
 
 [node name="World_navmeshtest" type="Node3D"]
 script = ExtResource("1_2ckvq")
@@ -676,6 +676,62 @@ transform = Transform3D(-0.425985, 0, -0.90473, 0, 1, 0, 0.90473, 0, -0.425985, 
 [node name="Spawnpoint22" parent="Pages" instance=ExtResource("8_o5f2w")]
 transform = Transform3D(-0.324528, 0, 0.945876, 0, 1, 0, -0.945876, 0, -0.324528, 22.8466, 2.10002, -3.98344)
 
+[node name="DebugHUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_c3fdb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugHUD"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 68.0
+offset_right = 445.0
+offset_bottom = 309.0
+
+[node name="Label" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Slender data"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Active_state" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Active:"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Enemyposition" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Position: (x, y, z)"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Timer_total" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Current teleport timer delay:"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Timer_counter" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Current timer teleport counter:"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Label2" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Player data"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="Pages_count" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Pages: 0"
+label_settings = SubResource("LabelSettings_elrtg")
+
+[node name="tvstatic_opacity" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Static opacity: 0.0"
+label_settings = SubResource("LabelSettings_elrtg")
+
 [node name="Pause_menu" type="Control" parent="."]
 process_mode = 3
 visible = false
@@ -770,62 +826,6 @@ text = "Apply"
 layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
-
-[node name="DebugHUD" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("10_c3fdb")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugHUD"]
-layout_mode = 0
-offset_left = 53.0
-offset_top = 68.0
-offset_right = 445.0
-offset_bottom = 309.0
-
-[node name="Label" type="Label" parent="DebugHUD/VBoxContainer"]
-layout_mode = 2
-text = "Slender data"
-label_settings = SubResource("LabelSettings_elrtg")
-
-[node name="Active_state" type="Label" parent="DebugHUD/VBoxContainer"]
-layout_mode = 2
-text = "Active:"
-label_settings = SubResource("LabelSettings_elrtg")
-
-[node name="Enemyposition" type="Label" parent="DebugHUD/VBoxContainer"]
-layout_mode = 2
-text = "Position: (x, y, z)"
-label_settings = SubResource("LabelSettings_elrtg")
-
-[node name="Timer_total" type="Label" parent="DebugHUD/VBoxContainer"]
-layout_mode = 2
-text = "Current teleport timer delay:"
-label_settings = SubResource("LabelSettings_elrtg")
-
-[node name="Timer_counter" type="Label" parent="DebugHUD/VBoxContainer"]
-layout_mode = 2
-text = "Current timer teleport counter:"
-label_settings = SubResource("LabelSettings_elrtg")
-
-[node name="Label2" type="Label" parent="DebugHUD/VBoxContainer"]
-layout_mode = 2
-text = "Player data"
-label_settings = SubResource("LabelSettings_elrtg")
-
-[node name="Pages_count" type="Label" parent="DebugHUD/VBoxContainer"]
-layout_mode = 2
-text = "Pages: 0"
-label_settings = SubResource("LabelSettings_elrtg")
-
-[node name="tvstatic_opacity" type="Label" parent="DebugHUD/VBoxContainer"]
-layout_mode = 2
-text = "Static opacity: 0.0"
-label_settings = SubResource("LabelSettings_elrtg")
 
 [connection signal="body_entered" from="Pages/Spawnpoint" to="Playercontroller" method="_on_spawnpoint_body_entered"]
 [connection signal="body_exited" from="Pages/Spawnpoint" to="Playercontroller" method="_on_spawnpoint_body_exited"]

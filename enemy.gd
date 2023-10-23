@@ -96,8 +96,8 @@ func aggresive_increment():
 			maxDistance /= 2
 		6:
 			speed *= 4
-			minDistance /= 5
-			maxDistance /= 5
+			minDistance = 20.0
+			maxDistance = 30.0
 
 func _on_visible_on_screen_notifier_3d_screen_entered():
 	on_view = true
