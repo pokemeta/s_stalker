@@ -5,7 +5,7 @@ extends Node3D
 
 func _ready():
 	var arr = get_random_numbers(0, spawnpoints.get_child_count())
-	for number in arr.slice(0, 8):
+	for number in arr:
 		var page = pagesobj.instantiate()
 		spawnpoints.get_child(number).add_child(page)
 		page.global_position = spawnpoints.get_child(number).global_position
@@ -18,4 +18,4 @@ func get_random_numbers(from, to):
 	for i in range(from,to):
 		arr.append(i)
 	arr.shuffle()
-	return arr
+	return arr.slice(0, 8)
