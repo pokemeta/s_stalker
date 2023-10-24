@@ -15,7 +15,20 @@ func _ready():
 
 func get_random_numbers(from, to):
 	var arr = []
+	var selects = []
+	var total = []
 	for i in range(from,to):
 		arr.append(i)
-	arr.shuffle()
-	return arr.slice(0, 8)
+	#arr.shuffle()
+	
+	for i in arr.size():
+		#print(arr[i])
+		selects.append(arr[i])
+		if i % 3 == 0:
+			total.append(selects.pick_random())
+			selects.clear()
+	
+	#print(total)
+	
+	#return arr.slice(0, 8)
+	return total
