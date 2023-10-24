@@ -779,6 +779,7 @@ offset_right = 109.5
 offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 20
 
 [node name="Return" type="Button" parent="Pause_menu/Buttons"]
 layout_mode = 2
@@ -811,18 +812,62 @@ offset_right = 109.5
 offset_bottom = 50.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 20
 
 [node name="Fullscreen_check" type="CheckBox" parent="Pause_menu/ConfigButtons"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Full screen"
 
-[node name="ResolutionLabel" type="Label" parent="Pause_menu/ConfigButtons"]
+[node name="GridContainer" type="GridContainer" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+columns = 2
+
+[node name="ResolutionLabel" type="Label" parent="Pause_menu/ConfigButtons/GridContainer"]
 layout_mode = 2
 text = "Resolution:"
 
-[node name="ResolutionOptions" type="OptionButton" parent="Pause_menu/ConfigButtons"]
+[node name="ResolutionOptions" type="OptionButton" parent="Pause_menu/ConfigButtons/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainer2" type="GridContainer" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+columns = 2
+
+[node name="MusicLabel" type="Label" parent="Pause_menu/ConfigButtons/GridContainer2"]
+layout_mode = 2
+text = "Music:"
+
+[node name="MusicSlider" type="HSlider" parent="Pause_menu/ConfigButtons/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="GridContainer3" type="GridContainer" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 33
+columns = 2
+
+[node name="SFXLabel" type="Label" parent="Pause_menu/ConfigButtons/GridContainer3"]
+layout_mode = 2
+text = "SFX:"
+
+[node name="SFXSlider" type="HSlider" parent="Pause_menu/ConfigButtons/GridContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.05
+value = 1.0
 
 [node name="Apply" type="Button" parent="Pause_menu/ConfigButtons"]
 layout_mode = 2
@@ -881,6 +926,8 @@ text = "Back"
 [connection signal="pressed" from="Pause_menu/Buttons/Return" to="Pause_menu" method="_on_return_pressed"]
 [connection signal="pressed" from="Pause_menu/Buttons/Configuration" to="Pause_menu" method="_on_configuration_pressed"]
 [connection signal="pressed" from="Pause_menu/Buttons/Quit" to="Pause_menu" method="_on_quit_pressed"]
-[connection signal="item_selected" from="Pause_menu/ConfigButtons/ResolutionOptions" to="Pause_menu" method="_on_resolution_options_item_selected"]
+[connection signal="item_selected" from="Pause_menu/ConfigButtons/GridContainer/ResolutionOptions" to="Pause_menu" method="_on_resolution_options_item_selected"]
+[connection signal="value_changed" from="Pause_menu/ConfigButtons/GridContainer2/MusicSlider" to="Pause_menu" method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Pause_menu/ConfigButtons/GridContainer3/SFXSlider" to="Pause_menu" method="_on_sfx_slider_value_changed"]
 [connection signal="pressed" from="Pause_menu/ConfigButtons/Apply" to="Pause_menu" method="_on_apply_pressed"]
 [connection signal="pressed" from="Pause_menu/ConfigButtons/Back" to="Pause_menu" method="_on_back_pressed"]

@@ -4,15 +4,22 @@ extends Control
 @onready var config_container = $Config_container
 
 @onready var fullscreen_check = $Config_container/Fullscreen_check
-@onready var resolution_options = $Config_container/ResolutionOptions
+@onready var resolution_options = $Config_container/GridContainer/ResolutionOptions
 
 @onready var bg_menu = $BG_menu
+
+@onready var music_slider = $Config_container/GridContainer2/MusicSlider
+@onready var sfx_slider = $Config_container/GridContainer3/SFXSlider
 
 func _ready():
 	add_items()
 	
 	fullscreen_check.button_pressed = Globals.fullscreen
 	resolution_options.disabled = Globals.fullscreen
+	
+	music_slider.value = Globals.music_val
+	sfx_slider.value = Globals.sfx_val
+	
 	bg_menu.play()
 
 func _on_play_button_pressed():
@@ -51,4 +58,8 @@ func _on_apply_button_pressed():
 	resolution_options.disabled = Globals.fullscreen
 	Globals.save_settings()
 
+func _on_music_slider_value_changed(value):
+	Globals.music_val = value
 
+func _on_sfx_slider_value_changed(value):
+	Globals.sfx_val = value
