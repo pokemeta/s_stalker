@@ -256,17 +256,23 @@ func flashlight_function(delta):
 	flashlight.transform.basis = flashlight.transform.basis.slerp(desired_basis, delta * FLASHLIGHT_FOLLOW_SPEED)
 
 func change_bgmusic_track():
-	bg_music.stop()
 	match(pages):
 		1:
+			bg_music.stop()
 			bg_music.stream = pages_ambience1
+			bg_music.play()
 		3:
+			bg_music.stop()
 			bg_music.stream = pages_ambience2
+			bg_music.play()
 		5:
+			bg_music.stop()
 			bg_music.stream = pages_ambience3
+			bg_music.play()
 		7:
+			bg_music.stop()
 			bg_music.stream = pages_ambience4
-	bg_music.play()
+			bg_music.play()
 
 func _on_set_view_true():
 	player_is_seeing_it = true
