@@ -8,6 +8,8 @@ extends Control
 @onready var music_slider = $ConfigButtons/GridContainer2/MusicSlider
 @onready var sfx_slider = $ConfigButtons/GridContainer3/SFXSlider
 
+@onready var debug_hud = $"../DebugHUD"
+
 func _ready():
 	fullscreen_check.button_pressed = Globals.fullscreen
 	resolution_options.disabled = Globals.fullscreen
@@ -61,3 +63,6 @@ func _on_apply_pressed():
 func _on_quit_pressed():
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://mainmenu.tscn")
+
+func _on_debug_pressed():
+	debug_hud.visible = !debug_hud.visible

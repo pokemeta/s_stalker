@@ -12,8 +12,6 @@ func _ready():
 	for spawnpoint in spawnpoints.get_children():
 		if not spawnpoint.has_node("Pagetest"):
 			spawnpoint.queue_free()
-		else:
-			print(spawnpoint.name)
 
 func get_random_numbers(from, to):
 	var arr = []
@@ -31,7 +29,7 @@ func get_random_numbers(from, to):
 			total.append(selects[0])
 			selects.clear()
 	
-	print(total)
+	#print(total)
 	
 	#return arr.slice(0, 8)
 	return total

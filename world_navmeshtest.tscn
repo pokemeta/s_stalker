@@ -677,6 +677,7 @@ transform = Transform3D(-0.425985, 0, -0.90473, 0, 1, 0, 0.90473, 0, -0.425985, 
 transform = Transform3D(-0.324528, 0, 0.945876, 0, 1, 0, -0.945876, 0, -0.324528, 22.8466, 2.10002, -3.98344)
 
 [node name="DebugHUD" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -874,6 +875,10 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Apply"
 
+[node name="Debug" type="Button" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+text = "Display debug"
+
 [node name="Back" type="Button" parent="Pause_menu/ConfigButtons"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -930,4 +935,5 @@ text = "Back"
 [connection signal="value_changed" from="Pause_menu/ConfigButtons/GridContainer2/MusicSlider" to="Pause_menu" method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Pause_menu/ConfigButtons/GridContainer3/SFXSlider" to="Pause_menu" method="_on_sfx_slider_value_changed"]
 [connection signal="pressed" from="Pause_menu/ConfigButtons/Apply" to="Pause_menu" method="_on_apply_pressed"]
+[connection signal="pressed" from="Pause_menu/ConfigButtons/Debug" to="Pause_menu" method="_on_debug_pressed"]
 [connection signal="pressed" from="Pause_menu/ConfigButtons/Back" to="Pause_menu" method="_on_back_pressed"]
