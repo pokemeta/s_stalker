@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://dw48lied41318"]
+[gd_scene load_steps=29 format=3 uid="uid://dw48lied41318"]
 
 [ext_resource type="Script" path="res://playercontroller.gd" id="1_otej2"]
 [ext_resource type="Texture2D" uid="uid://23p2exxosifm" path="res://assets/static_frames/frame1.png" id="2_rmmqo"]
+[ext_resource type="Texture2D" uid="uid://rr0vbhujn73o" path="res://icon.svg" id="3_abxp7"]
 [ext_resource type="Texture2D" uid="uid://dkpww1k1i4o30" path="res://assets/static_frames/frame2.png" id="3_yey3h"]
 [ext_resource type="Texture2D" uid="uid://cl4vmfdsbne8w" path="res://assets/static_frames/frame3.png" id="4_3f57e"]
 [ext_resource type="Texture2D" uid="uid://dbv6dheacpxhe" path="res://assets/static_frames/frame4.png" id="5_2g51g"]
@@ -224,6 +225,22 @@ label_settings = SubResource("LabelSettings_nh23w")
 libraries = {
 "": SubResource("AnimationLibrary_kgb1b")
 }
+
+[node name="Cursor" type="TextureRect" parent="HUD"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_abxp7")
+expand_mode = 1
 
 [node name="tv_static_anim" type="AnimationPlayer" parent="."]
 speed_scale = 2.0

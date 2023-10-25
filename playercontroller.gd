@@ -80,6 +80,9 @@ const FLASHLIGHT_FOLLOW_SPEED = 15.0
 @onready var pages_ambience3 = preload("res://assets/audio/music/AnxietyPages5-6.ogg")
 @onready var pages_ambience4 = preload("res://assets/audio/music/AnxietyPage7.ogg")
 
+# Cursor
+@onready var cursor = $HUD/Cursor
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -107,6 +110,7 @@ func _physics_process(delta):
 		get_tree().change_scene_to_file("res://winscreen.tscn")
 	
 	if is_caught:
+		cursor.visible = false
 		head.global_transform = head.global_transform.interpolate_with(head.global_transform.looking_at(point_look.global_position), 1.0 * delta)
 	
 	page_near_check()
@@ -126,6 +130,8 @@ func _physics_process(delta):
 		movement(delta)
 	
 	flashlight_function(delta)
+	
+	cursor_function(delta)
 
 func movement(delta):
 	# Add the gravity.
@@ -273,6 +279,13 @@ func change_bgmusic_track():
 			bg_music.stop()
 			bg_music.stream = pages_ambience4
 			bg_music.play()
+
+func cursor_function(delta):
+	if pagecast.is_colliding():
+		if pagecast.get_collider(0) is page_object and is_close_to_page:
+			cursor.size = lerp(cursor.size, Vector2(40, 40), 5 * delta)
+	else:
+		cursor.size = lerp(cursor.size, Vector2(20, 20), 5 * delta)
 
 func _on_set_view_true():
 	player_is_seeing_it = true
