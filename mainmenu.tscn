@@ -124,6 +124,34 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
+[node name="GridContainer4" type="GridContainer" parent="Config_container"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 33
+columns = 2
+
+[node name="Mouse_SLabel" type="Label" parent="Config_container/GridContainer4"]
+layout_mode = 2
+text = "Mouse Sensitivity:"
+
+[node name="GridContainer" type="GridContainer" parent="Config_container/GridContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="sensitivity_count" type="Label" parent="Config_container/GridContainer4/GridContainer"]
+layout_mode = 2
+text = "0.003"
+horizontal_alignment = 1
+
+[node name="Mouse_Sensitivity_Slider" type="HSlider" parent="Config_container/GridContainer4/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 0.01
+step = 0.001
+value = 0.003
+
 [node name="ApplyButton" type="Button" parent="Config_container"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -144,5 +172,6 @@ bus = &"Music"
 [connection signal="item_selected" from="Config_container/GridContainer/ResolutionOptions" to="." method="_on_resolution_options_item_selected"]
 [connection signal="value_changed" from="Config_container/GridContainer2/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Config_container/GridContainer3/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="Config_container/GridContainer4/GridContainer/Mouse_Sensitivity_Slider" to="." method="_on_mouse_sensitivity_slider_value_changed"]
 [connection signal="pressed" from="Config_container/ApplyButton" to="." method="_on_apply_button_pressed"]
 [connection signal="pressed" from="Config_container/ReturnButton" to="." method="_on_return_button_pressed"]

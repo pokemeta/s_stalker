@@ -12,6 +12,8 @@ var screen_resolution: Vector2i = Vector2i(1152, 648)
 var music_val = 1.0
 var sfx_val = 1.0
 
+var mouse_sensitvity = 0.003
+
 func _ready():
 	load_settings()
 
@@ -21,6 +23,7 @@ func save_settings():
 	config.set_value("Settings", "resolution", screen_resolution)
 	config.set_value("Settings", "music_volume", music_val)
 	config.set_value("Settings", "sfx_volume", sfx_val)
+	config.set_value("Settings", "mouse_sensitivity", mouse_sensitvity)
 	config.save(save_path)
 	apply_settings()
 
@@ -35,6 +38,7 @@ func load_settings():
 		screen_resolution = config.get_value(Settings, "resolution")
 		music_val = config.get_value(Settings, "music_volume")
 		sfx_val = config.get_value(Settings, "sfx_volume")
+		mouse_sensitvity = config.get_value(Settings, "mouse_sensitivity")
 		apply_settings()
 
 func create_settings_preferences():
@@ -44,6 +48,8 @@ func create_settings_preferences():
 	config.set_value("Settings", "resolution", screen_resolution)
 	config.set_value("Settings", "music_volume", music_val)
 	config.set_value("Settings", "sfx_volume", sfx_val)
+	
+	config.set_value("Settings", "mouse_sensitivity", mouse_sensitvity)
 	
 	config.save(save_path)
 	

@@ -10,12 +10,18 @@ extends Control
 
 @onready var debug_hud = $"../DebugHUD"
 
+@onready var sensitivity_count = $ConfigButtons/GridContainer4/GridContainer/sensitivity_count
+@onready var mouse_sensitivity_slider = $ConfigButtons/GridContainer4/GridContainer/Mouse_Sensitivity_Slider
+
 func _ready():
 	fullscreen_check.button_pressed = Globals.fullscreen
 	resolution_options.disabled = Globals.fullscreen
 	
 	music_slider.value = Globals.music_val
 	sfx_slider.value = Globals.sfx_val
+	
+	mouse_sensitivity_slider.value = Globals.mouse_sensitvity
+	sensitivity_count.text = str(Globals.mouse_sensitvity)
 	
 	add_items()
 
@@ -54,7 +60,11 @@ func _on_music_slider_value_changed(value):
 
 func _on_sfx_slider_value_changed(value):
 	Globals.sfx_val = value
-
+	
+func _on_mouse_sensitivity_slider_value_changed(value):
+	Globals.mouse_sensitvity = value
+	sensitivity_count.text = str(Globals.mouse_sensitvity)
+	
 func _on_apply_pressed():
 	Globals.fullscreen = fullscreen_check.button_pressed
 	resolution_options.disabled = Globals.fullscreen
@@ -66,3 +76,5 @@ func _on_quit_pressed():
 
 func _on_debug_pressed():
 	debug_hud.visible = !debug_hud.visible
+
+

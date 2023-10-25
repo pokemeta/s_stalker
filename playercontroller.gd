@@ -11,7 +11,7 @@ const SPRINT_SPEED = 8.0
 const JUMP_VELOCITY = 4.5
 
 # Mouse sensitvity
-const SENSITIVITY = 0.003
+var sensitivity = Globals.mouse_sensitvity
 
 # Object variables to move the camera
 @onready var camera = $Head/Camera3D
@@ -96,8 +96,8 @@ func _ready():
 	
 func _input(event):
 	if event is InputEventMouseMotion and not is_caught:
-		head.rotate_y(-event.relative.x * SENSITIVITY)
-		camera.rotate_x(-event.relative.y * SENSITIVITY)
+		head.rotate_y(-event.relative.x * sensitivity)
+		camera.rotate_x(-event.relative.y * sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 func _physics_process(delta):
@@ -132,6 +132,8 @@ func _physics_process(delta):
 	flashlight_function(delta)
 	
 	cursor_function(delta)
+	
+	sensitivity = Globals.mouse_sensitvity
 
 func movement(delta):
 	# Add the gravity.

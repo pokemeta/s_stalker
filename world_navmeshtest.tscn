@@ -813,7 +813,7 @@ offset_right = 109.5
 offset_bottom = 50.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 15
 
 [node name="Fullscreen_check" type="CheckBox" parent="Pause_menu/ConfigButtons"]
 layout_mode = 2
@@ -869,6 +869,35 @@ size_flags_vertical = 3
 max_value = 1.0
 step = 0.05
 value = 1.0
+
+[node name="GridContainer4" type="GridContainer" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 33
+columns = 2
+
+[node name="Mouse_SLabel" type="Label" parent="Pause_menu/ConfigButtons/GridContainer4"]
+layout_mode = 2
+text = "Mouse
+Sensitivity:"
+
+[node name="GridContainer" type="GridContainer" parent="Pause_menu/ConfigButtons/GridContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="sensitivity_count" type="Label" parent="Pause_menu/ConfigButtons/GridContainer4/GridContainer"]
+layout_mode = 2
+text = "0.003"
+horizontal_alignment = 1
+
+[node name="Mouse_Sensitivity_Slider" type="HSlider" parent="Pause_menu/ConfigButtons/GridContainer4/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 0.01
+step = 0.001
+value = 0.003
 
 [node name="Apply" type="Button" parent="Pause_menu/ConfigButtons"]
 layout_mode = 2
@@ -934,6 +963,7 @@ text = "Back"
 [connection signal="item_selected" from="Pause_menu/ConfigButtons/GridContainer/ResolutionOptions" to="Pause_menu" method="_on_resolution_options_item_selected"]
 [connection signal="value_changed" from="Pause_menu/ConfigButtons/GridContainer2/MusicSlider" to="Pause_menu" method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Pause_menu/ConfigButtons/GridContainer3/SFXSlider" to="Pause_menu" method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="Pause_menu/ConfigButtons/GridContainer4/GridContainer/Mouse_Sensitivity_Slider" to="Pause_menu" method="_on_mouse_sensitivity_slider_value_changed"]
 [connection signal="pressed" from="Pause_menu/ConfigButtons/Apply" to="Pause_menu" method="_on_apply_pressed"]
 [connection signal="pressed" from="Pause_menu/ConfigButtons/Debug" to="Pause_menu" method="_on_debug_pressed"]
 [connection signal="pressed" from="Pause_menu/ConfigButtons/Back" to="Pause_menu" method="_on_back_pressed"]

@@ -11,6 +11,9 @@ extends Control
 @onready var music_slider = $Config_container/GridContainer2/MusicSlider
 @onready var sfx_slider = $Config_container/GridContainer3/SFXSlider
 
+@onready var sensitivity_count = $Config_container/GridContainer4/GridContainer/sensitivity_count
+@onready var mouse_sensitivity_slider = $Config_container/GridContainer4/GridContainer/Mouse_Sensitivity_Slider
+
 func _ready():
 	add_items()
 	
@@ -19,6 +22,9 @@ func _ready():
 	
 	music_slider.value = Globals.music_val
 	sfx_slider.value = Globals.sfx_val
+	
+	mouse_sensitivity_slider.value = Globals.mouse_sensitvity
+	sensitivity_count.text = str(Globals.mouse_sensitvity)
 	
 	bg_menu.play()
 
@@ -63,3 +69,7 @@ func _on_music_slider_value_changed(value):
 
 func _on_sfx_slider_value_changed(value):
 	Globals.sfx_val = value
+
+func _on_mouse_sensitivity_slider_value_changed(value):
+	Globals.mouse_sensitvity = value
+	sensitivity_count.text = str(Globals.mouse_sensitvity)
