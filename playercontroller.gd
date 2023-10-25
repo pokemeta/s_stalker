@@ -285,8 +285,10 @@ func change_bgmusic_track():
 func cursor_function(delta):
 	if pagecast.is_colliding():
 		if pagecast.get_collider(0) is page_object and is_close_to_page:
+			cursor.self_modulate.a = lerp(cursor.self_modulate.a, 1.0, 5 * delta)
 			cursor.size = lerp(cursor.size, Vector2(40, 40), 5 * delta)
 	else:
+		cursor.self_modulate.a = lerp(cursor.self_modulate.a, 0.3, 5 * delta)
 		cursor.size = lerp(cursor.size, Vector2(20, 20), 5 * delta)
 
 func _on_set_view_true():

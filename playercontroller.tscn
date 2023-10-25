@@ -169,6 +169,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Cursor" type="TextureRect" parent="HUD"]
+self_modulate = Color(1, 1, 1, 0.333333)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
