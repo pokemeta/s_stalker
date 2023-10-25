@@ -33,3 +33,6 @@ func get_random_numbers(from, to):
 	
 	#return arr.slice(0, 8)
 	return total
+
+func _on_out_of_bounds_box_body_entered(_body):
+	OutOfBounds.emit_signal("trigger_out_warning")

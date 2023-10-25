@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://o6lkyfj4bujv"]
+[gd_scene load_steps=40 format=3 uid="uid://o6lkyfj4bujv"]
 
 [ext_resource type="Script" path="res://world_navmeshtest.gd" id="1_2ckvq"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_blocks.gd" id="1_4enxc"]
@@ -474,6 +474,9 @@ face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 [sub_resource type="LabelSettings" id="LabelSettings_fj7cw"]
 font_size = 32
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_0fxof"]
+size = Vector3(184.784, 1, 185.69)
+
 [node name="World_navmeshtest" type="Node3D"]
 script = ExtResource("1_2ckvq")
 
@@ -913,6 +916,13 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Back"
 
+[node name="Out_of_bounds_box" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.9477, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Out_of_bounds_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.16059, 0)
+shape = SubResource("BoxShape3D_0fxof")
+
 [connection signal="body_entered" from="Pages/Spawnpoint" to="Playercontroller" method="_on_spawnpoint_body_entered"]
 [connection signal="body_exited" from="Pages/Spawnpoint" to="Playercontroller" method="_on_spawnpoint_body_exited"]
 [connection signal="body_entered" from="Pages/Spawnpoint2" to="Playercontroller" method="_on_spawnpoint_body_entered"]
@@ -967,3 +977,4 @@ text = "Back"
 [connection signal="pressed" from="Pause_menu/ConfigButtons/Apply" to="Pause_menu" method="_on_apply_pressed"]
 [connection signal="pressed" from="Pause_menu/ConfigButtons/Debug" to="Pause_menu" method="_on_debug_pressed"]
 [connection signal="pressed" from="Pause_menu/ConfigButtons/Back" to="Pause_menu" method="_on_back_pressed"]
+[connection signal="body_entered" from="Out_of_bounds_box" to="." method="_on_out_of_bounds_box_body_entered"]
