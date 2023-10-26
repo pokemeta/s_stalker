@@ -726,6 +726,11 @@ layout_mode = 2
 text = "Player data"
 label_settings = SubResource("LabelSettings_elrtg")
 
+[node name="FPS_counter" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "FPS: 0"
+label_settings = SubResource("LabelSettings_elrtg")
+
 [node name="Pages_count" type="Label" parent="DebugHUD/VBoxContainer"]
 layout_mode = 2
 text = "Pages: 0"

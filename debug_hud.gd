@@ -14,8 +14,11 @@ extends Control
 @onready var pages_count = $VBoxContainer/Pages_count
 @onready var tvstatic_opacity = $VBoxContainer/tvstatic_opacity
 
+@onready var fps_counter = $VBoxContainer/FPS_counter
+var fps = 0
 
 func _process(_delta):
+	fps = str(Engine.get_frames_per_second())
 	active_state.text = "Active: " + str(enemy.active)
 	enemyposition.text = "Position: " + str(enemy.global_position)
 	timer_total.text = "Current teleport timer delay: " + str(enemy.teleport_delay_timer)
@@ -23,3 +26,6 @@ func _process(_delta):
 	
 	pages_count.text = "Pages: " + str(playercontroller.pages)
 	tvstatic_opacity.text = "Static opacity: " + str(tv_static.self_modulate.a)
+	
+	fps_counter.text = "FPS: " + fps
+	
