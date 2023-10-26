@@ -1,10 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://dw48lied41318"]
+[gd_scene load_steps=30 format=3 uid="uid://dw48lied41318"]
 
-[ext_resource type="Script" path="res://playercontroller.gd" id="1_otej2"]
+[ext_resource type="Script" path="res://playercontroller_a.gd" id="1_u6tfo"]
 [ext_resource type="Texture2D" uid="uid://23p2exxosifm" path="res://assets/static_frames/frame1.png" id="2_rmmqo"]
 [ext_resource type="Texture2D" uid="uid://rr0vbhujn73o" path="res://icon.svg" id="3_abxp7"]
 [ext_resource type="Texture2D" uid="uid://dkpww1k1i4o30" path="res://assets/static_frames/frame2.png" id="3_yey3h"]
 [ext_resource type="Texture2D" uid="uid://cl4vmfdsbne8w" path="res://assets/static_frames/frame3.png" id="4_3f57e"]
+[ext_resource type="PackedScene" path="res://joystick/virtual_joystick.tscn" id="4_7egeh"]
 [ext_resource type="Texture2D" uid="uid://dbv6dheacpxhe" path="res://assets/static_frames/frame4.png" id="5_2g51g"]
 [ext_resource type="Texture2D" uid="uid://craf3s6dc645o" path="res://assets/static_frames/frame5.png" id="6_kryp6"]
 [ext_resource type="AudioStream" uid="uid://daoofdt7sdll7" path="res://assets/audio/sfx/tv/radio_sfx.ogg" id="7_eflpc"]
@@ -123,7 +124,7 @@ stream_3/stream = ExtResource("11_lpl7e")
 stream_3/weight = 1.0
 
 [node name="Playercontroller" type="CharacterBody3D"]
-script = ExtResource("1_otej2")
+script = ExtResource("1_u6tfo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transparency = 1.0
@@ -137,6 +138,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.521406, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
+far = 300.0
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="Head/Camera3D"]
 shape = SubResource("SphereShape3D_h3yiq")
@@ -195,6 +197,33 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_rmmqo")
 
+[node name="Pausebutton" type="Button" parent="HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.924
+anchor_top = 0.096
+anchor_right = 0.924
+anchor_bottom = 0.096
+offset_left = -57.448
+offset_top = -36.208
+offset_right = 56.552
+offset_bottom = 36.792
+text = "Pause"
+
+[node name="Flashlightbutton" type="Button" parent="HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.569
+anchor_top = 0.868
+anchor_right = 0.569
+anchor_bottom = 0.868
+offset_left = -55.488
+offset_top = -32.464
+offset_right = 56.512
+offset_bottom = 32.536
+text = "Toggle
+flashlight"
+
 [node name="blackscreen" type="ColorRect" parent="HUD"]
 visible = false
 layout_mode = 1
@@ -243,6 +272,27 @@ libraries = {
 "": SubResource("AnimationLibrary_kgb1b")
 }
 
+[node name="Test" type="Node2D" parent="HUD"]
+
+[node name="UI" type="CanvasLayer" parent="HUD/Test"]
+
+[node name="Virtual joystick left" parent="HUD/Test/UI" instance=ExtResource("4_7egeh")]
+action_left = "left"
+action_right = "right"
+action_up = "up"
+action_down = "down"
+
+[node name="Virtual joystick right" parent="HUD/Test/UI" instance=ExtResource("4_7egeh")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+joystick_mode = 1
+
 [node name="tv_static_anim" type="AnimationPlayer" parent="."]
 speed_scale = 2.0
 libraries = {
@@ -269,3 +319,5 @@ bus = &"Music"
 [connection signal="on_caught" from="." to="." method="_on_on_caught"]
 [connection signal="set_view_false" from="." to="." method="_on_set_view_false"]
 [connection signal="set_view_true" from="." to="." method="_on_set_view_true"]
+[connection signal="pressed" from="HUD/Pausebutton" to="." method="_on_pausebutton_pressed"]
+[connection signal="pressed" from="HUD/Flashlightbutton" to="." method="_on_flashlightbutton_pressed"]
