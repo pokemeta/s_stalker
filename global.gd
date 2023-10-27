@@ -59,16 +59,16 @@ func set_window_resolution(width, height):
 	screen_resolution = Vector2i(width, height)
 
 func apply_settings():
-	if fullscreen:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-
-	if not fullscreen:
-		get_window().size = screen_resolution
-		var screen_size = DisplayServer.screen_get_size()
-		var window_size = get_window().size
-		get_window().position = screen_size*0.5 - window_size*0.5
+#	if fullscreen:
+#		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+#	else:
+#		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+#
+#	if not fullscreen:
+#		get_window().size = screen_resolution
+#		var screen_size = DisplayServer.screen_get_size()
+#		var window_size = get_window().size
+#		get_window().position = screen_size*0.5 - window_size*0.5
 
 	AudioServer.set_bus_volume_db(MUSIC_BUS_ID, linear_to_db(music_val))
 	AudioServer.set_bus_mute(MUSIC_BUS_ID, music_val < 0.05)

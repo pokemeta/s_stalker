@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://rr0vbhujn73o" path="res://icon.svg" id="3_abxp7"]
 [ext_resource type="Texture2D" uid="uid://dkpww1k1i4o30" path="res://assets/static_frames/frame2.png" id="3_yey3h"]
 [ext_resource type="Texture2D" uid="uid://cl4vmfdsbne8w" path="res://assets/static_frames/frame3.png" id="4_3f57e"]
-[ext_resource type="PackedScene" path="res://joystick/virtual_joystick.tscn" id="4_7egeh"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="4_7egeh"]
 [ext_resource type="Texture2D" uid="uid://dbv6dheacpxhe" path="res://assets/static_frames/frame4.png" id="5_2g51g"]
 [ext_resource type="Texture2D" uid="uid://craf3s6dc645o" path="res://assets/static_frames/frame5.png" id="6_kryp6"]
 [ext_resource type="AudioStream" uid="uid://daoofdt7sdll7" path="res://assets/audio/sfx/tv/radio_sfx.ogg" id="7_eflpc"]
@@ -31,10 +31,10 @@ radius = 0.1
 [sub_resource type="BoxMesh" id="BoxMesh_5ue36"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kydfm"]
-font_size = 32
+font_size = 64
 
 [sub_resource type="LabelSettings" id="LabelSettings_nh23w"]
-font_size = 32
+font_size = 64
 
 [sub_resource type="Animation" id="Animation_c88by"]
 length = 0.001
@@ -178,10 +178,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_abxp7")
@@ -200,27 +200,27 @@ texture = ExtResource("2_rmmqo")
 [node name="Pausebutton" type="Button" parent="HUD"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.924
-anchor_top = 0.096
-anchor_right = 0.924
-anchor_bottom = 0.096
-offset_left = -57.448
-offset_top = -36.208
-offset_right = 56.552
-offset_bottom = 36.792
+anchor_left = 0.119
+anchor_top = 0.156
+anchor_right = 0.119
+anchor_bottom = 0.156
+offset_left = -114.088
+offset_top = -73.088
+offset_right = 113.912
+offset_bottom = 72.912
 text = "Pause"
 
 [node name="Flashlightbutton" type="Button" parent="HUD"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.569
-anchor_top = 0.868
-anchor_right = 0.569
-anchor_bottom = 0.868
-offset_left = -55.488
-offset_top = -32.464
-offset_right = 56.512
-offset_bottom = 32.536
+anchor_left = 0.875
+anchor_top = 0.437
+anchor_right = 0.875
+anchor_bottom = 0.437
+offset_left = -112.0
+offset_top = -65.176
+offset_right = 112.0
+offset_bottom = 64.824
 text = "Toggle
 flashlight"
 
@@ -242,28 +242,26 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -141.0
-offset_top = -127.0
-offset_right = 141.0
-offset_bottom = -79.0
+offset_left = -300.0
+offset_top = -218.0
+offset_right = 300.0
+offset_bottom = -170.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Press [Left Click] to collect"
+text = "Press anywhere in the screen to collect"
 label_settings = SubResource("LabelSettings_kydfm")
 
 [node name="page_count" type="Label" parent="HUD"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -195.5
-offset_top = -48.0
-offset_right = 195.5
+offset_left = -392.0
+offset_top = 150.0
+offset_right = 392.0
+offset_bottom = 241.0
 grow_horizontal = 2
-grow_vertical = 0
 text = "Pages 0 out of 8 collected"
 label_settings = SubResource("LabelSettings_nh23w")
 
@@ -277,6 +275,10 @@ libraries = {
 [node name="UI" type="CanvasLayer" parent="HUD/Test"]
 
 [node name="Virtual joystick left" parent="HUD/Test/UI" instance=ExtResource("4_7egeh")]
+offset_left = 80.0
+offset_top = -368.0
+offset_right = 380.0
+offset_bottom = -68.0
 action_left = "left"
 action_right = "right"
 action_up = "up"
@@ -286,10 +288,10 @@ action_down = "down"
 anchors_preset = 3
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -300.0
-offset_top = -300.0
-offset_right = 0.0
-offset_bottom = 0.0
+offset_left = -424.0
+offset_top = -368.0
+offset_right = -124.0
+offset_bottom = -68.0005
 grow_horizontal = 0
 joystick_mode = 1
 

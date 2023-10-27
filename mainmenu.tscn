@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://djtg57vv8uep7"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_600g6"]
-[ext_resource type="AudioStream" uid="uid://co6dknix8632l" path="res://assets/audio/music/Menu.ogg" id="2_v2woq"]
+[ext_resource type="AudioStream" uid="uid://dqex0p10siibx" path="res://assets/audio/music/Menu.ogg" id="2_v2woq"]
 
 [node name="Main_menu" type="Control"]
 layout_mode = 3
@@ -11,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_600g6")
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -28,10 +29,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -238.5
-offset_top = -113.5
-offset_right = 238.5
-offset_bottom = 113.5
+offset_left = -477.0
+offset_top = -227.0
+offset_right = 477.0
+offset_bottom = 227.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
@@ -60,10 +61,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -230.5
-offset_top = -143.5
-offset_right = 230.5
-offset_bottom = 143.5
+offset_left = -461.0
+offset_top = -337.0
+offset_right = 461.0
+offset_bottom = 337.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
