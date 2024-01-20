@@ -2,3 +2,4 @@
 .godot/
 settings.save
 assets/audio/music
+export_presets.cfg

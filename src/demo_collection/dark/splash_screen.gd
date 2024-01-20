@@ -39,7 +39,7 @@ func _ready():
 
 func config():
 	bg_color.color = background_color
-	logo.texture = load_texture(logo_path)
+	#logo.texture = load_texture(logo_path)
 	logo.modulate = logo_color
 	
 	var center_point = self.origin_size / 2.0

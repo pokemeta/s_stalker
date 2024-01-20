@@ -8,9 +8,6 @@
 [node name="SplashContainer" type="Node2D" node_paths=PackedStringArray("audio_bg")]
 script = ExtResource("1_3c2w7")
 audio_bg = NodePath("SplashDark/AudioStreamPlayer")
-custom_node/type = 0
-custom_node/default_time = 1.0
-skip/type = 0
 move_to_scene = ExtResource("2_ufxyp")
 trainsition_type = 0
 
