@@ -32,7 +32,7 @@ func add_items():
 func _on_return_pressed():
 	visible = false
 	get_tree().paused = false
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _on_configuration_pressed():
 	buttons.visible = false
