@@ -12,7 +12,7 @@ var screen_resolution: Vector2i = Vector2i(1152, 648)
 var music_val = 1.0
 var sfx_val = 1.0
 
-var mouse_sensitvity = 0.003
+var mouse_sensitvity = 0.005
 
 func _ready():
 	load_settings()
