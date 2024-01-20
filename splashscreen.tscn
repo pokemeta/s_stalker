@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwoieqmhhjdvv"]
+
+[ext_resource type="Script" path="res://addons/awesome_splash/core/SplashContainer.gd" id="1_3c2w7"]
+[ext_resource type="PackedScene" uid="uid://dl2v33c3p3coa" path="res://src/demo_collection/dark/splash_screen.tscn" id="2_fs0s6"]
+[ext_resource type="PackedScene" uid="uid://djtg57vv8uep7" path="res://mainmenu.tscn" id="2_ufxyp"]
+[ext_resource type="AudioStream" uid="uid://d4b6v8b84144w" path="res://assets/audio/sfx/static_radio_intro.ogg" id="3_rroaw"]
+
+[node name="SplashContainer" type="Node2D" node_paths=PackedStringArray("audio_bg")]
+script = ExtResource("1_3c2w7")
+audio_bg = NodePath("SplashDark/AudioStreamPlayer")
+custom_node/type = 0
+custom_node/default_time = 1.0
+skip/type = 0
+move_to_scene = ExtResource("2_ufxyp")
+trainsition_type = 0
+
+[node name="SplashDark" parent="." instance=ExtResource("2_fs0s6")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SplashDark"]
+stream = ExtResource("3_rroaw")
+volume_db = -6.686
