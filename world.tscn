@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b3go2r76t8gd4"]
+[gd_scene load_steps=30 format=3 uid="uid://b3go2r76t8gd4"]
 
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_blocks.gd" id="1_gtd6s"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_convex_block.gd" id="2_x2g8i"]
@@ -10,8 +10,10 @@
 [ext_resource type="Material" uid="uid://babdo6d0fb1vl" path="res://materials/placeholder4.tres" id="7_xkrlc"]
 [ext_resource type="Material" uid="uid://dwyqesykvhx2l" path="res://materials/placeholder5.tres" id="8_1yad1"]
 [ext_resource type="Material" uid="uid://dfhsktefivanp" path="res://materials/placeholder6.tres" id="9_jhv0m"]
-[ext_resource type="Script" path="res://enemy_test.gd" id="10_w7uxw"]
+[ext_resource type="PackedScene" uid="uid://cuaj0gkhbg52t" path="res://enemy.tscn" id="10_pb7qb"]
 [ext_resource type="PackedScene" uid="uid://dej1l8ydm5vkd" path="res://page.tscn" id="12_h6bg8"]
+[ext_resource type="Script" path="res://debug_hud.gd" id="13_rpebn"]
+[ext_resource type="Script" path="res://pausemenu.gd" id="14_6hlg6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yw7yy"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -226,9 +228,10 @@ face_selected = PackedByteArray(0, 0, 0, 0, 0, 0)
 active_face = -1
 face_ids = PackedInt32Array(0, 1, 2, 3, 4, 5)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yqh1f"]
+[sub_resource type="LabelSettings" id="LabelSettings_ivd1y"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_rxvkj"]
+[sub_resource type="LabelSettings" id="LabelSettings_ra8mv"]
+font_size = 32
 
 [node name="World" type="Node3D"]
 
@@ -292,22 +295,12 @@ script = ExtResource("2_x2g8i")
 materials = Array[Material]([ExtResource("9_jhv0m")])
 block_data = SubResource("Resource_favff")
 
+[node name="Enemy" parent="." instance=ExtResource("10_pb7qb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.0677, 1.00001, 28.7642)
+
 [node name="Playercontroller" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("5_gchtp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0187473, 1, -0.0150486)
-enemy = NodePath("../Enemy_test")
-
-[node name="Enemy_test" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.641, 1, -17.1565)
-script = ExtResource("10_w7uxw")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy_test"]
-shape = SubResource("CapsuleShape3D_yqh1f")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy_test"]
-mesh = SubResource("CapsuleMesh_rxvkj")
-
-[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="Enemy_test"]
-aabb = AABB(-0.500435, -0.9352, -0.653013, 1.00087, 1.8704, 1.30603)
+enemy = NodePath("../Enemy")
 
 [node name="Pages" type="Node3D" parent="."]
 
@@ -343,5 +336,255 @@ playercontroller = NodePath("../../Playercontroller")
 transform = Transform3D(0.0251831, 0, 0, 0, 0.568065, 0, 0, 0, 0.356293, -16.989, 2.16042, -24.2179)
 playercontroller = NodePath("../../Playercontroller")
 
-[connection signal="screen_entered" from="Enemy_test/VisibleOnScreenNotifier3D" to="Enemy_test" method="_on_visible_on_screen_notifier_3d_screen_entered"]
-[connection signal="screen_exited" from="Enemy_test/VisibleOnScreenNotifier3D" to="Enemy_test" method="_on_visible_on_screen_notifier_3d_screen_exited"]
+[node name="DebugHUD" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_rpebn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugHUD"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 68.0
+offset_right = 445.0
+offset_bottom = 309.0
+
+[node name="Label" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Slender data"
+label_settings = SubResource("LabelSettings_ivd1y")
+
+[node name="Active_state" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Active:"
+label_settings = SubResource("LabelSettings_ivd1y")
+
+[node name="Enemyposition" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Position: (x, y, z)"
+label_settings = SubResource("LabelSettings_ivd1y")
+
+[node name="Timer_total" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Current teleport timer delay:"
+label_settings = SubResource("LabelSettings_ivd1y")
+
+[node name="Timer_counter" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Current timer teleport counter:"
+label_settings = SubResource("LabelSettings_ivd1y")
+
+[node name="Label2" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Player data"
+label_settings = SubResource("LabelSettings_ivd1y")
+
+[node name="FPS_counter" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "FPS: 0"
+label_settings = SubResource("LabelSettings_ivd1y")
+
+[node name="Pages_count" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Pages: 0"
+label_settings = SubResource("LabelSettings_ivd1y")
+
+[node name="tvstatic_opacity" type="Label" parent="DebugHUD/VBoxContainer"]
+layout_mode = 2
+text = "Static opacity: 0.0"
+label_settings = SubResource("LabelSettings_ivd1y")
+
+[node name="Pause_menu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14_6hlg6")
+
+[node name="Background" type="ColorRect" parent="Pause_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.568627)
+
+[node name="Pause_text" type="Label" parent="Pause_menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.5
+offset_top = 100.0
+offset_right = 28.5
+offset_bottom = 126.0
+grow_horizontal = 2
+text = "Paused"
+label_settings = SubResource("LabelSettings_ra8mv")
+
+[node name="Buttons" type="VBoxContainer" parent="Pause_menu"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.5
+offset_top = -55.0
+offset_right = 109.5
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Return" type="Button" parent="Pause_menu/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Return
+"
+
+[node name="Configuration" type="Button" parent="Pause_menu/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Configuration"
+
+[node name="Quit" type="Button" parent="Pause_menu/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Quit"
+
+[node name="ConfigButtons" type="VBoxContainer" parent="Pause_menu"]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.5
+offset_top = -50.5
+offset_right = 109.5
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Fullscreen_check" type="CheckBox" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Full screen"
+
+[node name="GridContainer" type="GridContainer" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+columns = 2
+
+[node name="ResolutionLabel" type="Label" parent="Pause_menu/ConfigButtons/GridContainer"]
+layout_mode = 2
+text = "Resolution:"
+
+[node name="ResolutionOptions" type="OptionButton" parent="Pause_menu/ConfigButtons/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainer2" type="GridContainer" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+columns = 2
+
+[node name="MusicLabel" type="Label" parent="Pause_menu/ConfigButtons/GridContainer2"]
+layout_mode = 2
+text = "Music:"
+
+[node name="MusicSlider" type="HSlider" parent="Pause_menu/ConfigButtons/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="GridContainer3" type="GridContainer" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 33
+columns = 2
+
+[node name="SFXLabel" type="Label" parent="Pause_menu/ConfigButtons/GridContainer3"]
+layout_mode = 2
+text = "SFX:"
+
+[node name="SFXSlider" type="HSlider" parent="Pause_menu/ConfigButtons/GridContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="GridContainer4" type="GridContainer" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 33
+columns = 2
+
+[node name="Mouse_SLabel" type="Label" parent="Pause_menu/ConfigButtons/GridContainer4"]
+layout_mode = 2
+text = "Mouse
+Sensitivity:"
+
+[node name="GridContainer" type="GridContainer" parent="Pause_menu/ConfigButtons/GridContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="sensitivity_count" type="Label" parent="Pause_menu/ConfigButtons/GridContainer4/GridContainer"]
+layout_mode = 2
+text = "0.003"
+horizontal_alignment = 1
+
+[node name="Mouse_Sensitivity_Slider" type="HSlider" parent="Pause_menu/ConfigButtons/GridContainer4/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 0.01
+step = 0.001
+value = 0.003
+
+[node name="Apply" type="Button" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Apply"
+
+[node name="Debug" type="Button" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+text = "Display debug"
+
+[node name="Back" type="Button" parent="Pause_menu/ConfigButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Back"
+
+[connection signal="pressed" from="Pause_menu/Buttons/Return" to="Pause_menu" method="_on_return_pressed"]
+[connection signal="pressed" from="Pause_menu/Buttons/Configuration" to="Pause_menu" method="_on_configuration_pressed"]
+[connection signal="pressed" from="Pause_menu/Buttons/Quit" to="Pause_menu" method="_on_quit_pressed"]
+[connection signal="item_selected" from="Pause_menu/ConfigButtons/GridContainer/ResolutionOptions" to="Pause_menu" method="_on_resolution_options_item_selected"]
+[connection signal="value_changed" from="Pause_menu/ConfigButtons/GridContainer2/MusicSlider" to="Pause_menu" method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Pause_menu/ConfigButtons/GridContainer3/SFXSlider" to="Pause_menu" method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="Pause_menu/ConfigButtons/GridContainer4/GridContainer/Mouse_Sensitivity_Slider" to="Pause_menu" method="_on_mouse_sensitivity_slider_value_changed"]
+[connection signal="pressed" from="Pause_menu/ConfigButtons/Apply" to="Pause_menu" method="_on_apply_pressed"]
+[connection signal="pressed" from="Pause_menu/ConfigButtons/Debug" to="Pause_menu" method="_on_debug_pressed"]
+[connection signal="pressed" from="Pause_menu/ConfigButtons/Back" to="Pause_menu" method="_on_back_pressed"]
