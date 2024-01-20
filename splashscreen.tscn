@@ -3,14 +3,11 @@
 [ext_resource type="Script" path="res://addons/awesome_splash/core/SplashContainer.gd" id="1_1o84h"]
 [ext_resource type="PackedScene" uid="uid://djtg57vv8uep7" path="res://mainmenu.tscn" id="2_uefxp"]
 [ext_resource type="PackedScene" uid="uid://dl2v33c3p3coa" path="res://src/demo_collection/dark/splash_screen.tscn" id="3_uun47"]
-[ext_resource type="AudioStream" uid="uid://b0j6em7iluj1g" path="res://assets/audio/sfx/static_radio_intro.ogg" id="4_ue61u"]
+[ext_resource type="AudioStream" uid="uid://d4b6v8b84144w" path="res://assets/audio/sfx/static_radio_intro.ogg" id="4_ue61u"]
 
 [node name="splashscreen" type="Node2D" node_paths=PackedStringArray("audio_bg")]
 script = ExtResource("1_1o84h")
 audio_bg = NodePath("SplashDark/AudioStreamPlayer")
-custom_node/type = 0
-custom_node/default_time = 1.0
-skip/type = 1
 move_to_scene = ExtResource("2_uefxp")
 trainsition_type = 0
 
